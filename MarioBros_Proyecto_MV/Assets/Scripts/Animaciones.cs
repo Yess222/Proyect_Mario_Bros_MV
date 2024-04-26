@@ -18,16 +18,16 @@ public class Animaciones : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     //void Update()
     //{
-        //animator.SetBool("Grounded", colisiones.Grounded());
-        //animator.SetFloat("VelocityX", Mathf.Abs(mover.rb2D.velocity.x));
-        //animator.SetBool("Jumping", mover.isJumping);
-        //animator.SetBool("Skid", mover.isSkidding);
+    //animator.SetBool("Grounded", colisiones.Grounded());
+    //animator.SetFloat("VelocityX", Mathf.Abs(mover.rb2D.velocity.x));
+    //animator.SetBool("Jumping", mover.isJumping);
+    //animator.SetBool("Skid", mover.isSkidding);
     //}
 
     public void Grounded(bool isGrounded)

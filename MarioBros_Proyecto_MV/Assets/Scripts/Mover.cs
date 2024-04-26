@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Mover : MonoBehaviour
-{   
-    enum Direction { Left=-1, None=0, Right=1};
+{
+    enum Direction { Left = -1, None = 0, Right = 1 };
     Direction currentDirection = Direction.None;
 
     public float speed;
@@ -15,41 +15,47 @@ public class Mover : MonoBehaviour
 
     public float jumpForce;
     public float maxJumpingTime = 1f;
-    bool isJumping;
+    public bool isJumping;
     float jumpTimer = 0;
     float defaultGravity;
 
-
-    Rigidbody2D rb2D;
+    public bool isSkidding;
+    public Rigidbody2D rb2D;
     Colisiones colisiones;
+
+    Animaciones animaciones;
     private void Awake()
     {
         rb2D = GetComponent<Rigidbody2D>();
         colisiones = GetComponent<Colisiones>();
+        animaciones = GetComponent<Animaciones>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
         defaultGravity = rb2D.gravityScale;
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        bool grounded = colisiones.Grounded();
+        animaciones.Grounded(grounded);
         if (isJumping)
         {
-            if(rb2D.velocity.y < 0f)
-            {
-                rb2D.gravityScale = defaultGravity;
-                if (colisiones.Grounded())
-                {
-                    isJumping = false;
-                    jumpTimer = 0;
-                }
-            }
-            else if (rb2D.velocity.y > 0f)
+            //if(rb2D.velocity.y < 0f)
+            //{
+            //rb2D.gravityScale = defaultGravity;
+            //if (grounded)
+            //{
+            //isJumping = false;
+            //jumpTimer = 0;
+            //animaciones.Jumping(false);
+            //}
+            //}
+            if (rb2D.velocity.y > 0f)
             {
                 if (Input.GetKey(KeyCode.Space))
                 {
@@ -57,10 +63,20 @@ public class Mover : MonoBehaviour
                 }
                 if (Input.GetKeyUp(KeyCode.Space))
                 {
-                    if(jumpTimer < maxJumpingTime)
+                    if (jumpTimer < maxJumpingTime)
                     {
                         rb2D.gravityScale = defaultGravity * 3f;
                     }
+                }
+            }
+            else
+            {
+                rb2D.gravityScale = defaultGravity;
+                if (grounded)
+                {
+                    isJumping = false;
+                    jumpTimer = 0;
+                    animaciones.Jumping(false);
                 }
             }
         }
@@ -80,8 +96,10 @@ public class Mover : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Jump();
-            //MoveRight();
+            if (grounded)
+            {
+                Jump();
+            }
         }
 
 
@@ -108,38 +126,43 @@ public class Mover : MonoBehaviour
         //Vector2 velocity = new Vector2(velocityX, rb2D.velocity.y);
         //rb2D.velocity = velocity;
 
+        isSkidding = false;
         currentVelocity = rb2D.velocity.x;
-        if(currentDirection > 0)
+        if (currentDirection > 0)
         {
-            if(currentVelocity < 0)
+            if (currentVelocity < 0)
             {
                 currentVelocity += (acceleration + friction) * Time.deltaTime;
+                isSkidding = true;
             }
-            else if(currentVelocity < maxVelocity)
+            else if (currentVelocity < maxVelocity)
             {
                 currentVelocity += acceleration * Time.deltaTime;
+                transform.localScale = new Vector2(1, 1);
             }
         }
-        else if(currentDirection < 0)
+        else if (currentDirection < 0)
         {
-            if(currentVelocity > 0)
+            if (currentVelocity > 0)
             {
                 currentVelocity -= (acceleration + friction) * Time.deltaTime;
+                isSkidding = true;
 
             }
-            else if(currentVelocity > -maxVelocity)
+            else if (currentVelocity > -maxVelocity)
             {
                 currentVelocity -= acceleration * Time.deltaTime;
+                transform.localScale = new Vector2(-1, 1);
             }
         }
         else
         {
-            if(currentVelocity > 1f)
+            if (currentVelocity > 1f)
             {
                 currentVelocity -= friction * Time.deltaTime;
 
             }
-            else if(currentVelocity < -1f)
+            else if (currentVelocity < -1f)
             {
                 currentVelocity += friction * Time.deltaTime;
             }
@@ -150,17 +173,21 @@ public class Mover : MonoBehaviour
         }
         Vector2 velocity = new Vector2(currentVelocity, rb2D.velocity.y);
         rb2D.velocity = velocity;
+
+        animaciones.Velocity(currentVelocity);
+        animaciones.Skid(isSkidding);
     }
 
     void Jump()
     {
-        if (colisiones.Grounded() && !isJumping)
+        if (!isJumping)
         {
             isJumping = true;
             Vector2 fuerza = new Vector2(0, jumpForce);
             rb2D.AddForce(fuerza, ForceMode2D.Impulse);
+            animaciones.Jumping(true);
         }
-        
+
     }
 
     void MoveRight()
