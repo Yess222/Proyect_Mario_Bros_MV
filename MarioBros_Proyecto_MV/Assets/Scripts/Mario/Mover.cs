@@ -23,6 +23,7 @@ public class Mover : MonoBehaviour
     public Rigidbody2D rb2D;
     Colisiones colisiones;
 
+    public bool inputMoveEnabled = true;
     Animaciones animaciones;
     private void Awake()
     {
@@ -31,30 +32,19 @@ public class Mover : MonoBehaviour
         animaciones = GetComponent<Animaciones>();
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         defaultGravity = rb2D.gravityScale;
 
     }
 
-    // Update is called once per frame
     void Update()
     {
         bool grounded = colisiones.Grounded();
         animaciones.Grounded(grounded);
         if (isJumping)
         {
-            //if(rb2D.velocity.y < 0f)
-            //{
-            //rb2D.gravityScale = defaultGravity;
-            //if (grounded)
-            //{
-            //isJumping = false;
-            //jumpTimer = 0;
-            //animaciones.Jumping(false);
-            //}
-            //}
+
             if (rb2D.velocity.y > 0f)
             {
                 if (Input.GetKey(KeyCode.Space))
@@ -80,52 +70,29 @@ public class Mover : MonoBehaviour
                 }
             }
         }
-
-
         currentDirection = Direction.None;
-        //transform.Translate(speed, 0, 0); 
 
-        //if(Input.GetKey(KeyCode.W)|| Input.GetKey(KeyCode.UpArrow))
-        //{
-        //    transform.Translate(0, speed*Time.deltaTime, 0);
-        //}
-        //if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
-        //{
-        //    transform.Translate(0, -speed * Time.deltaTime, 0);
-        //}
-
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (inputMoveEnabled)
         {
-            if (grounded)
+            if (Input.GetKeyDown(KeyCode.Space))
             {
+                if (grounded)
+                {
                 Jump();
+                }
+            }
+            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) 
+            {
+                currentDirection = Direction.Left;
+            }
+            if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+            {
+                currentDirection = Direction.Right;
             }
         }
-
-
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
-        {
-            //transform.Translate(-speed * Time.deltaTime, 0, 0);
-            currentDirection = Direction.Left;
-        }
-        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
-        {
-            //transform.Translate(speed * Time.deltaTime, 0, 0);
-            //MoveRight();
-            currentDirection = Direction.Right;
-        }
-
     }
     public void FixedUpdate()
     {
-        //Vector2 forceAcceleration = new Vector2((int)currentDirection * acceleration, 0f);
-        //rb2D.AddForce(forceAcceleration);
-        //float velocityX = Mathf.Clamp(rb2D.velocity.x, -maxVelocity, maxVelocity);
-
-
-        //Vector2 velocity = new Vector2(velocityX, rb2D.velocity.y);
-        //rb2D.velocity = velocity;
-
         isSkidding = false;
         currentVelocity = rb2D.velocity.x;
         if (currentDirection > 0)
@@ -187,7 +154,6 @@ public class Mover : MonoBehaviour
             rb2D.AddForce(fuerza, ForceMode2D.Impulse);
             animaciones.Jumping(true);
         }
-
     }
 
     void MoveRight()
@@ -197,4 +163,18 @@ public class Mover : MonoBehaviour
         Vector2 velocity = new Vector2(1f, 0f);
         rb2D.velocity = velocity;
     }
+    public void Dead()
+    {
+        inputMoveEnabled = false;
+        rb2D.velocity = Vector2.zero; 
+        rb2D.gravityScale = 1;
+        rb2D.AddForce(Vector2.up * 5f, ForceMode2D.Impulse); 
+    }
+    public void BounceUp()
+    {
+        rb2D.velocity = Vector2.zero;
+        //  Vector2.forceUp = new Vector2(0,10f); Es lo mismo :v
+        rb2D.AddForce(Vector2.up * 10f, ForceMode2D.Impulse);
+    }
+    
 }
