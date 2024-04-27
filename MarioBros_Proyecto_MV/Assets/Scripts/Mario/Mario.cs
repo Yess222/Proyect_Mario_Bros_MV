@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Mario : MonoBehaviour
 {
+    enum State { Default=0,Super=1}
+    State currentState = State.Default;
     public GameObject stompBox;
 
     Mover mover;
@@ -11,6 +13,7 @@ public class Mario : MonoBehaviour
     Animaciones animaciones;
     Rigidbody2D rb2D;
 
+    bool isDead;
     private void Awake(){
         mover = GetComponent<Mover>();
         colisiones = GetComponent<Colisiones>();
@@ -19,7 +22,7 @@ public class Mario : MonoBehaviour
     }
     private void Update()
     {
-        if (rb2D.velocity.y < 0)
+        if (rb2D.velocity.y < 0 && !isDead)
         {
             stompBox.SetActive(true);
         }
@@ -27,17 +30,42 @@ public class Mario : MonoBehaviour
         {
             stompBox.SetActive(false);
         }
+
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            animaciones.PowerUp();
+        }
+        if(Input.GetKeyDown(KeyCode.H))
+        {
+            Hit();
+        }
     }
     public void Hit()
     {
-        //Debug.Log("Hit");
-        Dead();
+        if(currentState == State.Default)
+        {
+            Dead();
+        }
+        else
+        {
+            animaciones.Hit();
+        }
+        
     }
     public void Dead()
     {
-        //mover.inputMoveEnabled = false;
-        colisiones.Dead();
-        mover.Dead();
-        animaciones.Dead();
+        if(!isDead)
+        {
+            isDead = true;
+            colisiones.Dead();
+            mover.Dead();
+            animaciones.Dead();
+        }
+        
+    }
+    void ChangeState(int newState)
+    {
+        currentState = (State)newState;
+        animaciones.NewState(newState);
     }
 }
