@@ -75,7 +75,7 @@ public class Colisiones : MonoBehaviour
         Enemy enemy = collision.GetComponent<Enemy>();
         if (enemy != null)
         {
-            enemy.Stomped();
+            enemy.Stomped(transform);
             mover.BounceUp();
         }
     }

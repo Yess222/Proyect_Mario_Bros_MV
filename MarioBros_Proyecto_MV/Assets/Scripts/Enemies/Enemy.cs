@@ -6,19 +6,19 @@ public class Enemy : MonoBehaviour
 {
     protected Animator animator;
     protected AutoMovement autoMovement;
-    protected Rigidbody20 rb20;
+    protected Rigidbody2D rb2d;
     protected virtual void Awake()
     {
         animator = GetComponent<Animator>();
         autoMovement = GetComponent<AutoMovement>(); 
-        rb2d = GetComponent<RigidBonny2D>();   
+        rb2d = GetComponent<Rigidbody2D>();   
     }
     protected virtual void Update()
     {
 
     }
-    public virtual void Stomped()
+    public virtual void Stomped(Transform player)
     {
-
+        
     }
 }

@@ -11,6 +11,8 @@ public class AutoMovement : MonoBehaviour
     SpriteRenderer spriteRenderer;
 
     Vector2 lastVelocity;
+    Vector2 currentDirection;
+    float  defaultSpeed;
     private void Awake()
     {
         rb2D = GetComponent<Rigidbody2D>();
@@ -19,12 +21,13 @@ public class AutoMovement : MonoBehaviour
     private void Start()
     {
         rb2D.velocity = new Vector2(speed, rb2D.velocity.y);
+        defaultSpeed = Mathf.Abs(speed);
     }
     private void FixedUpdate()
     {
         if (!movementPaused)
         {
-            if(rb2D.velocity.x > -0.1f && rb2D.velocity.x < -0.1f)
+            if(rb2D.velocity.x > -0.1f && rb2D.velocity.x < 0.1f)
             {
                 speed=-speed;
             }
@@ -44,6 +47,7 @@ public class AutoMovement : MonoBehaviour
     {
         if (!movementPaused)
         {
+            currentDirection = rb2D.velocity.normalized;
             lastVelocity = rb2D.velocity;
             movementPaused = true;
             rb2D.velocity = new Vector2(0,0);
@@ -52,9 +56,18 @@ public class AutoMovement : MonoBehaviour
     public void ContinueMovement()
     {
         if(movementPaused)
-        {
-            rb2D.velocity = lastVelocity;
+        {   
+            speed = defaultSpeed  * currentDirection.x;
+            rb2D.velocity = new Vector2(speed,lastVelocity.y);
             movementPaused = false; 
+        }
+    }
+    public void ContinueMovement(Vector2 newVelocity)
+    {
+        if(movementPaused)
+        {
+            rb2D.velocity = newVelocity;
+            movementPaused = false;
         }
     }
 }

@@ -8,6 +8,7 @@ public class Koopa : Enemy
    public float maxStoppedTime;
    float stoppedTimer;
 
+   public float rollingSpeed;
    protected override void  Update()
    {
       base.Update();
@@ -20,7 +21,7 @@ public class Koopa : Enemy
          }
       }
    }
-   public override void Stomped()
+   public override void Stomped(Transform player)
    {
       if(!isHidden)
       {
@@ -28,10 +29,28 @@ public class Koopa : Enemy
          animator.SetBool("Hidden",isHidden);
          autoMovement.PauseMovement();
       }
-
+      else
+      {
+         if(Mathf.Abs(rb2d.velocity.x) > 0f)
+         {
+            autoMovement.PauseMovement();
+         }
+         else
+         {
+            if(player.position.x < transform.position.x)
+            {
+               autoMovement.speed = rollingSpeed;
+            }
+            else
+            {
+               autoMovement.speed = -rollingSpeed;
+            }
+            autoMovement.ContinueMovement(new Vector2(autoMovement.speed, 0f));
+         }         
+      }
       gameObject.layer = LayerMask.NameToLayer("OnlyGround");
-
       Invoke("ResetLayer", 0.1f);
+      stoppedTimer = 0;
    }
    
    void ResetLayer()
