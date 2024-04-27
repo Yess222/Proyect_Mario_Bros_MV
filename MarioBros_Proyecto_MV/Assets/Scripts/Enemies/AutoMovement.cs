@@ -10,6 +10,7 @@ public class AutoMovement : MonoBehaviour
     Rigidbody2D rb2D;
     SpriteRenderer spriteRenderer;
 
+    Vector2 lastVelocity;
     private void Awake()
     {
         rb2D = GetComponent<Rigidbody2D>();
@@ -43,8 +44,17 @@ public class AutoMovement : MonoBehaviour
     {
         if (!movementPaused)
         {
+            lastVelocity = rb2D.velocity;
             movementPaused = true;
             rb2D.velocity = new Vector2(0,0);
+        }
+    }
+    public void ContinueMovement()
+    {
+        if(movementPaused)
+        {
+            rb2D.velocity = lastVelocity;
+            movementPaused = false; 
         }
     }
 }

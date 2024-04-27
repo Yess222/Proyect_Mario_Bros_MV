@@ -13,6 +13,6 @@ public class Goomba : Enemy
         animator.SetTrigger("Hit");
         gameObject.layer = LayerMask.NameToLayer("OnlyGround");
         Destroy(gameObject, 1f);
-        GetComponent<AutoMovement>().PauseMovement();
+        autoMovement.PauseMovement();
     }
 }
