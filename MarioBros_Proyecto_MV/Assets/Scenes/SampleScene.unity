@@ -737,7 +737,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4cbab976d39a674d813a31d130ee468, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxStoppedTime: 0
+  maxStoppedTime: 5
+  rollingSpeed: 5
 --- !u!1 &478283054
 GameObject:
   m_ObjectHideFlags: 0
