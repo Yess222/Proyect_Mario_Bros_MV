@@ -5,30 +5,12 @@ using UnityEngine;
 public class Animaciones : MonoBehaviour
 {
     Animator animator;
-    //Colisiones colisiones;
-    //Mover mover;
+
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        //colisiones = GetComponent<Colisiones>();
-        //mover = GetComponent<Mover>();
     }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    //void Update()
-    //{
-    //animator.SetBool("Grounded", colisiones.Grounded());
-    //animator.SetFloat("VelocityX", Mathf.Abs(mover.rb2D.velocity.x));
-    //animator.SetBool("Jumping", mover.isJumping);
-    //animator.SetBool("Skid", mover.isSkidding);
-    //}
 
     public void Grounded(bool isGrounded)
     {
@@ -52,5 +34,17 @@ public class Animaciones : MonoBehaviour
     public void Dead()
     {
         animator.SetTrigger("Dead");
+    }
+    public void NewState(int state)
+    {
+        animator.SetInteger("State",state);
+    }
+    public void PowerUp()
+    {
+        animator.SetTrigger("PowerUp");
+    }
+    public void Hit()
+    {
+        animator.SetTrigger("Hit");
     }
 }

@@ -4,14 +4,21 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public Animator animator;
-
+    protected Animator animator;
+    protected AutoMovement autoMovement;
+    protected Rigidbody2D rb2d;
     protected virtual void Awake()
     {
-        animator = GetComponent<Animator>();    
+        animator = GetComponent<Animator>();
+        autoMovement = GetComponent<AutoMovement>(); 
+        rb2d = GetComponent<Rigidbody2D>();   
     }
-    public virtual void Stomped()
+    protected virtual void Update()
     {
 
+    }
+    public virtual void Stomped(Transform player)
+    {
+        
     }
 }
