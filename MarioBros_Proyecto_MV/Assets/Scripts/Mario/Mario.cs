@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Mario : MonoBehaviour
 {
-    enum State { Default=0,Super=1}
+    enum State { Default=0,Super=1,Fire=2}
     State currentState = State.Default;
     public GameObject stompBox;
 
@@ -32,7 +32,8 @@ public class Mario : MonoBehaviour
         }
 
         if(Input.GetKeyDown(KeyCode.P))
-        {
+        {   
+            Time.timeScale = 0;
             animaciones.PowerUp();
         }
         if(Input.GetKeyDown(KeyCode.H))
@@ -48,6 +49,7 @@ public class Mario : MonoBehaviour
         }
         else
         {
+            Time.timeScale =0;
             animaciones.Hit();
         }
         
@@ -67,5 +69,6 @@ public class Mario : MonoBehaviour
     {
         currentState = (State)newState;
         animaciones.NewState(newState);
+        Time.timeScale = 1;
     }
 }
