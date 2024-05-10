@@ -11,7 +11,7 @@ public class Mario : MonoBehaviour
     Mover mover;
     Colisiones colisiones;
     Animaciones animaciones;
-    Rigidbody2D rb2D;
+    Rigidbody2D rb2D;    
 
     bool isDead;
     private void Awake(){
@@ -71,4 +71,59 @@ public class Mario : MonoBehaviour
         animaciones.NewState(newState);
         Time.timeScale = 1;
     }
+    public void CatchItem(ItemType type)
+    {
+        /*if (type == ItemType.MagicMushroom)
+        {
+            //MagicMushroom
+        }
+        else if (type == ItemType.FireFlower) 
+        {
+            //FireFlower
+        }
+        else if (type == ItemType.Coin)
+        {
+            //Coin
+        }
+        else if (type == ItemType.Life)
+        {
+            //Life
+        }
+        else if (type == ItemType.Star)
+        {
+            //Star
+        }*/
+
+        switch (type)
+        {
+            case ItemType.MagicMushroom:
+                //MagicMushroom
+                if(currentState == State.Default)
+                {
+                    animaciones.PowerUp();
+                    Time.timeScale = 0;
+                }
+                break;
+            case ItemType.FireFlower:
+                //FireFlower
+                if (currentState != State.Fire)
+                {
+                    animaciones.PowerUp();
+                    Time.timeScale = 0;
+                }
+                break;
+            case ItemType.Coin:
+                //Coin
+                Debug.Log("Coin");
+                break;
+            case ItemType.Life:
+                //Life
+                break;
+            case ItemType.Star:
+                //Star
+                break;            
+        }
+
+    }
+
 }
