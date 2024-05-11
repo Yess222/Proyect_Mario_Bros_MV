@@ -11,8 +11,9 @@ public class Mario : MonoBehaviour
     Mover mover;
     Colisiones colisiones;
     Animaciones animaciones;
-    Rigidbody2D rb2D;    
+    Rigidbody2D rb2D;
 
+    public GameObject headBox;
     bool isDead;
     private void Awake(){
         mover = GetComponent<Mover>();
@@ -29,6 +30,15 @@ public class Mario : MonoBehaviour
         else
         {
             stompBox.SetActive(false);
+        }
+
+        if(rb2D.velocity.y > 0)
+        {
+            headBox.SetActive(true);
+        }
+        else
+        {
+            headBox.SetActive(false);
         }
 
         if(Input.GetKeyDown(KeyCode.P))

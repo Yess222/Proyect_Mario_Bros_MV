@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8200619101647259403}
   - component: {fileID: 1276657004949227140}
   - component: {fileID: 3662439769082290014}
+  - component: {fileID: 4989871107030780909}
   m_Layer: 11
   m_Name: FireFlower
   m_TagString: Untagged
@@ -134,3 +135,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
+--- !u!114 &4989871107030780909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1176800772869556484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81623b7862eea9c4a90f4a9e92377baf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 2246194, guid: b91a732cdc117d1419f9a7390ea8a7db, type: 3}
+  - {fileID: 32109589, guid: b91a732cdc117d1419f9a7390ea8a7db, type: 3}
+  - {fileID: -624223211, guid: b91a732cdc117d1419f9a7390ea8a7db, type: 3}
+  - {fileID: 658819835, guid: b91a732cdc117d1419f9a7390ea8a7db, type: 3}
+  frameTime: 0.1
