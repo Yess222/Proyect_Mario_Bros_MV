@@ -51,7 +51,7 @@ public class SpritesAnimation : MonoBehaviour
         //while(animationFrame < sprites.Length)
         while (true)  
         {
-            Debug.Log("Animation Frame: " + animationFrame);
+            //Debug.Log("Animation Frame: " + animationFrame);
             spriteRenderer.sprite = sprites[animationFrame];
             //yield return null; //que vuelva en el sgte frame            
             animationFrame++;
