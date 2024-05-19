@@ -10,6 +10,9 @@ public class SpritesAnimation : MonoBehaviour
     //float timer = 0f;
     int animationFrame = 0;
 
+    public bool stop;
+    public bool loop = true;
+
     SpriteRenderer spriteRenderer;
     private void Awake()
     {
@@ -48,18 +51,32 @@ public class SpritesAnimation : MonoBehaviour
 
     IEnumerator Animation()
     {
-        //while(animationFrame < sprites.Length)
-        while (true)  
+        if (loop)
         {
-            Debug.Log("Animation Frame: " + animationFrame);
-            spriteRenderer.sprite = sprites[animationFrame];
-            //yield return null; //que vuelva en el sgte frame            
-            animationFrame++;
-            if(animationFrame >= sprites.Length)
+            //while(animationFrame < sprites.Length)
+            while (!stop)
             {
-                animationFrame = 0;
+                Debug.Log("Animation Frame: " + animationFrame);
+                spriteRenderer.sprite = sprites[animationFrame];
+                //yield return null; //que vuelva en el sgte frame            
+                animationFrame++;
+                if (animationFrame >= sprites.Length)
+                {
+                    animationFrame = 0;
+                }
+                yield return new WaitForSeconds(frameTime);
             }
-            yield return new WaitForSeconds(frameTime);
         }
+        else
+        {
+            while (animationFrame < sprites.Length)
+            {
+                spriteRenderer.sprite = sprites[animationFrame];
+                animationFrame++;
+                yield return new WaitForSeconds(frameTime);
+            }
+            Destroy(gameObject);
+        }
+        
     }
 }

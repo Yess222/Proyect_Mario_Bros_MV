@@ -47,4 +47,8 @@ public class Animaciones : MonoBehaviour
     {
         animator.SetTrigger("Hit");
     }
+    public void Shoot()
+    {
+        animator.SetTrigger("Shoot");
+    }
 }
