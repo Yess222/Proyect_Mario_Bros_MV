@@ -7,15 +7,13 @@ public class Mario : MonoBehaviour
     enum State { Default=0,Super=1,Fire=2}
     State currentState = State.Default;
     public GameObject stompBox;
+
     Mover mover;
     Colisiones colisiones;
     Animaciones animaciones;
     Rigidbody2D rb2D;
 
-    public GameObject fireBallPrefab;
-    public Transform shootPos;
-    
-    //public GameObject headBox;
+    public GameObject headBox;
     bool isDead;
     private void Awake(){
         mover = GetComponent<Mover>();
@@ -25,42 +23,33 @@ public class Mario : MonoBehaviour
     }
     private void Update()
     {
-
-        if (!isDead)
+        if (rb2D.velocity.y < 0 && !isDead)
         {
-            if (rb2D.velocity.y < 0)
-            {
-                stompBox.SetActive(true);
-            }
-            else
-            {
-                stompBox.SetActive(false);
-            }
-            if (Input.GetKeyDown(KeyCode.Z))
-            {
-                Shoot();
-            }
+            stompBox.SetActive(true);
         }
-        
+        else
+        {
+            stompBox.SetActive(false);
+        }
 
-        //if(rb2D.velocity.y > 0 && !isDead)
-        //{
-        //    headBox.SetActive(true);
-        //}
-        //else
-        //{
-        //    headBox.SetActive(false);
-        //}
+        if(rb2D.velocity.y > 0)
+        {
+            headBox.SetActive(true);
+        }
+        else
+        {
+            headBox.SetActive(false);
+        }
 
-        //if(Input.GetKeyDown(KeyCode.P))
-        //{   
-        //    Time.timeScale = 0;
-        //    animaciones.PowerUp();
-        //}
-        //if(Input.GetKeyDown(KeyCode.H))
-        //{
-        //    Hit();
-        //}
+        if(Input.GetKeyDown(KeyCode.P))
+        {   
+            Time.timeScale = 0;
+            animaciones.PowerUp();
+        }
+        if(Input.GetKeyDown(KeyCode.H))
+        {
+            Hit();
+        }
     }
     public void Hit()
     {
@@ -145,15 +134,6 @@ public class Mario : MonoBehaviour
                 break;            
         }
 
-    }
-    void Shoot()
-    {
-        if(currentState == State.Fire)
-        {
-            GameObject newFireBall = Instantiate(fireBallPrefab, shootPos.position, Quaternion.identity);
-            newFireBall.GetComponent<Fireball>().direction = transform.localScale.x;
-            animaciones.Shoot();
-        }
     }
 
 }
