@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Block : MonoBehaviour
 {
+
     public bool isBreakable;
     public GameObject brickPiecePrefab;
 
@@ -20,7 +21,7 @@ public class Block : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("HeadMario"))
+        if(collision.CompareTag("HeadMario"))
         {
             collision.transform.parent.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             if (isBreakable)

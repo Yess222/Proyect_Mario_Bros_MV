@@ -37,7 +37,7 @@ public class SpritesAnimation : MonoBehaviour
             animationFrame++;
             //Tenemos que controlar que el indice no es mayor
             //que el numero de registros del array
-            //Si es así, significa que ya hemos pasado el último 
+            //Si es asÃ­, significa que ya hemos pasado el Ãºltimo 
             //y volvemos a empezar
             if (animationFrame >= sprites.Length)
             {
@@ -53,8 +53,15 @@ public class SpritesAnimation : MonoBehaviour
     {
         if (loop)
         {
+
             //while(animationFrame < sprites.Length)
             while (!stop)
+
+            //Debug.Log("Animation Frame: " + animationFrame);
+            spriteRenderer.sprite = sprites[animationFrame];
+            //yield return null; //que vuelva en el sgte frame            
+            animationFrame++;
+            if(animationFrame >= sprites.Length)
             {
                 //Debug.Log("Animation Frame: " + animationFrame);
                 spriteRenderer.sprite = sprites[animationFrame];
