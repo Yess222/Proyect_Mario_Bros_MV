@@ -10,9 +10,6 @@ public class SpritesAnimation : MonoBehaviour
     //float timer = 0f;
     int animationFrame = 0;
 
-    public bool stop;
-    public bool loop = true;
-
     SpriteRenderer spriteRenderer;
     private void Awake()
     {
@@ -37,7 +34,7 @@ public class SpritesAnimation : MonoBehaviour
             animationFrame++;
             //Tenemos que controlar que el indice no es mayor
             //que el numero de registros del array
-            //Si es asÃ­, significa que ya hemos pasado el Ãºltimo 
+            //Si es así, significa que ya hemos pasado el último 
             //y volvemos a empezar
             if (animationFrame >= sprites.Length)
             {
@@ -51,39 +48,18 @@ public class SpritesAnimation : MonoBehaviour
 
     IEnumerator Animation()
     {
-        if (loop)
+        //while(animationFrame < sprites.Length)
+        while (true)  
         {
-
-            //while(animationFrame < sprites.Length)
-            while (!stop)
-
             //Debug.Log("Animation Frame: " + animationFrame);
             spriteRenderer.sprite = sprites[animationFrame];
             //yield return null; //que vuelva en el sgte frame            
             animationFrame++;
             if(animationFrame >= sprites.Length)
             {
-                //Debug.Log("Animation Frame: " + animationFrame);
-                spriteRenderer.sprite = sprites[animationFrame];
-                //yield return null; //que vuelva en el sgte frame            
-                animationFrame++;
-                if (animationFrame >= sprites.Length)
-                {
-                    animationFrame = 0;
-                }
-                yield return new WaitForSeconds(frameTime);
+                animationFrame = 0;
             }
+            yield return new WaitForSeconds(frameTime);
         }
-        else
-        {
-            while (animationFrame < sprites.Length)
-            {
-                spriteRenderer.sprite = sprites[animationFrame];
-                animationFrame++;
-                yield return new WaitForSeconds(frameTime);
-            }
-            Destroy(gameObject);
-        }
-        
     }
 }

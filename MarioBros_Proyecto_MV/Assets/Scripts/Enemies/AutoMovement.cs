@@ -16,7 +16,6 @@ public class AutoMovement : MonoBehaviour
 
     public bool flipSprite = true;
 
-    float timer = 0;
     private void Awake()
     {
         rb2D = GetComponent<Rigidbody2D>();
@@ -33,18 +32,8 @@ public class AutoMovement : MonoBehaviour
         {
             if(rb2D.velocity.x > -0.1f && rb2D.velocity.x < 0.1f)
             {
-                if(timer > 0.05f)
-                {
-                    speed = -speed;
-                }
-                timer += Time.deltaTime;
+                speed=-speed;
             }
-            else
-            {
-                timer = 0;
-            }
-
-
             rb2D.velocity = new Vector2(speed, rb2D.velocity.y);
 
             if (flipSprite)
