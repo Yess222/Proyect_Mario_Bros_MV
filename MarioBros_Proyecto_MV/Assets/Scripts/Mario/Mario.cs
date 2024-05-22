@@ -13,7 +13,7 @@ public class Mario : MonoBehaviour
     Animaciones animaciones;
     Rigidbody2D rb2D;
 
-    public GameObject headBox;
+    //public GameObject headBox;
     bool isDead;
     private void Awake(){
         mover = GetComponent<Mover>();
@@ -32,14 +32,14 @@ public class Mario : MonoBehaviour
             stompBox.SetActive(false);
         }
 
-        if(rb2D.velocity.y > 0)
-        {
-            headBox.SetActive(true);
-        }
-        else
-        {
-            headBox.SetActive(false);
-        }
+        //if(rb2D.velocity.y > 0 && !isDead)
+        //{
+        //    headBox.SetActive(true);
+        //}
+        //else
+        //{
+        //    headBox.SetActive(false);
+        //}
 
         if(Input.GetKeyDown(KeyCode.P))
         {   
