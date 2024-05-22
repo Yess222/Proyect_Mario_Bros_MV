@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
     protected virtual void Awake()
     {
         animator = GetComponent<Animator>();
-        autoMovement = GetComponent<AutoMovement>(); 
+        autoMovement = GetComponent<AutoMovement>();
         rb2d = GetComponent<Rigidbody2D>();   
     }
     protected virtual void Update()
@@ -20,5 +20,20 @@ public class Enemy : MonoBehaviour
     public virtual void Stomped(Transform player)
     {
         
+    }
+    public virtual void HitFireball()
+    {
+        FlipDie();
+    }
+    void FlipDie()
+    {
+        animator.SetTrigger("Flip");
+        rb2d.velocity = Vector2.zero;
+        rb2d.AddForce(Vector2.up * 6, ForceMode2D.Impulse);
+        if(autoMovement != null)
+        {
+            autoMovement.enabled = false;
+        }
+        GetComponent<Collider2D>().enabled = false;
     }
 }
