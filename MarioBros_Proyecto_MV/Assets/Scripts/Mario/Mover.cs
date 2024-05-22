@@ -20,10 +20,13 @@ public class Mover : MonoBehaviour
     float defaultGravity;
 
     public bool isSkidding;
+
     public Rigidbody2D rb2D;
     Colisiones colisiones;
 
     public bool inputMoveEnabled = true;
+
+    public GameObject headBox;
     Animaciones animaciones;
     private void Awake()
     {
@@ -40,6 +43,7 @@ public class Mover : MonoBehaviour
 
     void Update()
     {
+        headBox.SetActive(false);
         bool grounded = colisiones.Grounded();
         animaciones.Grounded(grounded);
         if (isJumping)
@@ -47,6 +51,7 @@ public class Mover : MonoBehaviour
 
             if (rb2D.velocity.y > 0f)
             {
+                headBox.SetActive(true);
                 if (Input.GetKey(KeyCode.Space))
                 {
                     jumpTimer += Time.deltaTime;
