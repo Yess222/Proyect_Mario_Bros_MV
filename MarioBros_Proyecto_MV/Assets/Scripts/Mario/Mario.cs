@@ -13,6 +13,9 @@ public class Mario : MonoBehaviour
     Animaciones animaciones;
     Rigidbody2D rb2D;
 
+    public GameObject fireBallPrefab;
+    public Transform shootPos;
+
     //public GameObject headBox;
     bool isDead;
     private void Awake(){
@@ -23,14 +26,22 @@ public class Mario : MonoBehaviour
     }
     private void Update()
     {
-        if (rb2D.velocity.y < 0 && !isDead)
+        if (!isDead)
         {
-            stompBox.SetActive(true);
+            if (rb2D.velocity.y < 0)
+            {
+                stompBox.SetActive(true);
+            }
+            else
+            {
+                stompBox.SetActive(false);
+            }
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                Shoot();
+            }
         }
-        else
-        {
-            stompBox.SetActive(false);
-        }
+        
 
         //if(rb2D.velocity.y > 0 && !isDead)
         //{
@@ -41,15 +52,15 @@ public class Mario : MonoBehaviour
         //    headBox.SetActive(false);
         //}
 
-        if(Input.GetKeyDown(KeyCode.P))
-        {   
-            Time.timeScale = 0;
-            animaciones.PowerUp();
-        }
-        if(Input.GetKeyDown(KeyCode.H))
-        {
-            Hit();
-        }
+        //if(Input.GetKeyDown(KeyCode.P))
+        //{   
+        //   Time.timeScale = 0;
+        //    animaciones.PowerUp();
+        //}
+        //if(Input.GetKeyDown(KeyCode.H))
+        //{
+        //    Hit();
+        //}
     }
     public void Hit()
     {
@@ -135,5 +146,13 @@ public class Mario : MonoBehaviour
         }
 
     }
-
+    void Shoot()
+    {
+        if(currentState == State.Fire)
+        {
+            GameObject newFireBall = Instantiate(fireBallPrefab, shootPos.position, Quaternion.identity);
+            newFireBall.GetComponent<Fireball>().direction = transform.localScale.x;
+            animaciones.Shoot();
+        }
+    }
 }
