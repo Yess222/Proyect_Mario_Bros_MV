@@ -75,4 +75,11 @@ public class Item : MonoBehaviour
             }
         }
     }
+    public void HitBelowBlock()
+    {
+        if(autoMovement != null && autoMovement.enabled)
+        {
+            autoMovement.ChangeDirection();
+        }
+    }
 }

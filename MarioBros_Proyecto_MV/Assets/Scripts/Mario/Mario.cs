@@ -20,6 +20,11 @@ public class Mario : MonoBehaviour
     public float invincibleTime;
     float invincibleTimer;
 
+
+    public bool isHurt;
+    public float hurtTime;
+    float hurtTimer;
+
     //public GameObject headBox;
     bool isDead;
     private void Awake(){
@@ -53,6 +58,14 @@ public class Mario : MonoBehaviour
                     animaciones.InvincibleMode(false);
                 }
             }
+            if (isHurt)
+            {
+                hurtTimer -= Time.deltaTime;
+                if(hurtTimer <= 0)
+                {
+                    EndHurt();
+                }
+            }
         }
         
 
@@ -77,16 +90,34 @@ public class Mario : MonoBehaviour
     }
     public void Hit()
     {
-        if(currentState == State.Default)
+        if (!isHurt)
         {
-            Dead();
+            if (currentState == State.Default)
+            {
+                Dead();
+            }
+            else
+            {
+                Time.timeScale = 0;
+                animaciones.Hit();
+                StartHurt();
+            }
         }
-        else
-        {
-            Time.timeScale =0;
-            animaciones.Hit();
-        }
-        
+    }
+
+    void StartHurt()
+    {
+        isHurt = true;
+        animaciones.Hurt(true);
+        hurtTimer = hurtTime;
+        colisiones.HurtCollision(true);
+    }
+
+    void EndHurt()
+    {
+        isHurt = false;
+        animaciones.Hurt(false);
+        colisiones.HurtCollision(false);
     }
     public void Dead()
     {
@@ -107,26 +138,7 @@ public class Mario : MonoBehaviour
     }
     public void CatchItem(ItemType type)
     {
-        /*if (type == ItemType.MagicMushroom)
-        {
-            //MagicMushroom
-        }
-        else if (type == ItemType.FireFlower) 
-        {
-            //FireFlower
-        }
-        else if (type == ItemType.Coin)
-        {
-            //Coin
-        }
-        else if (type == ItemType.Life)
-        {
-            //Life
-        }
-        else if (type == ItemType.Star)
-        {
-            //Star
-        }*/
+
 
         switch (type)
         {
@@ -158,6 +170,7 @@ public class Mario : MonoBehaviour
                 isInvincible = true;
                 animaciones.InvincibleMode(true);
                 invincibleTimer = invincibleTime;
+                EndHurt();
                 break;            
         }
 
@@ -170,5 +183,9 @@ public class Mario : MonoBehaviour
             newFireBall.GetComponent<Fireball>().direction = transform.localScale.x;
             animaciones.Shoot();
         }
+    }
+    public bool IsBig()
+    {
+        return currentState != State.Default;
     }
 }
