@@ -9,6 +9,17 @@ public class Item : MonoBehaviour
 {
     public ItemType type;
     bool isCatched;
+
+    public Vector2 startVelocity;
+    AutoMovement autoMovement;
+    private void Awake()
+    {
+        autoMovement = GetComponent<AutoMovement>();
+    }
+    private void Start()
+    {
+       // Invoke("StartMove", 5f);
+    }
     
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -41,5 +52,27 @@ public class Item : MonoBehaviour
             }
         }   
 
+    }
+
+    public void WaitMove()
+    {
+        if (autoMovement != null)
+        {
+            autoMovement.enabled = false;
+        }
+    }
+    public void StartMove()
+    {
+        if(autoMovement != null)
+        {
+            autoMovement.enabled = true;
+        }
+        else
+        {
+            if(startVelocity != Vector2.zero)
+            {
+                GetComponent<Rigidbody2D>().velocity = startVelocity;
+            }
+        }
     }
 }

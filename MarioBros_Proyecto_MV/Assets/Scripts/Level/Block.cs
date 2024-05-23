@@ -129,11 +129,13 @@ public class Block : MonoBehaviour
     {
         GameObject newItem = Instantiate(itemPrefab, transform.position, Quaternion.identity);
 
-        AutoMovement autoMovement = newItem.GetComponent<AutoMovement>();
-        if(autoMovement != null)
-        {
-            autoMovement.enabled = false;
-        }
+        //AutoMovement autoMovement = newItem.GetComponent<AutoMovement>();
+        //if(autoMovement != null)
+        //{
+        //    autoMovement.enabled = false;
+        //}
+        Item item = newItem.GetComponent<Item>();
+        item.WaitMove();
         float time = 0;
         float duration = 1f;
         Vector2 startPosition = newItem.transform.position;
@@ -146,9 +148,10 @@ public class Block : MonoBehaviour
             yield return null;
         }
         newItem.transform.position = targetPosition;
-        if(autoMovement != null)
-        {
-            autoMovement.enabled = true;
-        }
+        //if(autoMovement != null)
+        //{
+        //    autoMovement.enabled = true;
+        //}
+        item.StartMove();
     }
 }

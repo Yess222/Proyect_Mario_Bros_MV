@@ -17,6 +17,13 @@ public class Enemy : MonoBehaviour
     {
 
     }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.layer == gameObject.layer)
+        {
+            autoMovement.ChangeDirection();
+        }
+    }
     public virtual void Stomped(Transform player)
     {
         
@@ -25,6 +32,12 @@ public class Enemy : MonoBehaviour
     {
         FlipDie();
     }
+
+    public virtual void HitStarman() 
+    {
+        FlipDie();
+    }
+
     void FlipDie()
     {
         animator.SetTrigger("Flip");

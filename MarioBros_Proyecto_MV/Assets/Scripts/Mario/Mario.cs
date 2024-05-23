@@ -16,6 +16,10 @@ public class Mario : MonoBehaviour
     public GameObject fireBallPrefab;
     public Transform shootPos;
 
+    public bool isInvincible;
+    public float invincibleTime;
+    float invincibleTimer;
+
     //public GameObject headBox;
     bool isDead;
     private void Awake(){
@@ -39,6 +43,15 @@ public class Mario : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Z))
             {
                 Shoot();
+            }
+            if (isInvincible)
+            {
+                invincibleTimer -= Time.deltaTime;
+                if(invincibleTimer <= 0)
+                {
+                    isInvincible = false;
+                    animaciones.InvincibleMode(false);
+                }
             }
         }
         
@@ -142,6 +155,9 @@ public class Mario : MonoBehaviour
                 break;
             case ItemType.Star:
                 //Star
+                isInvincible = true;
+                animaciones.InvincibleMode(true);
+                invincibleTimer = invincibleTime;
                 break;            
         }
 
