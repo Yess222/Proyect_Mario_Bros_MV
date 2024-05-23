@@ -37,8 +37,16 @@ public class Enemy : MonoBehaviour
     {
         FlipDie();
     }
+    public virtual void HitBelowBlock()
+    {
+        FlipDie();
+    }
+    public  virtual void HitRollingShell()
+    {
+        FlipDie();
+    }
 
-    void FlipDie()
+    protected void FlipDie()
     {
         animator.SetTrigger("Flip");
         rb2d.velocity = Vector2.zero;
