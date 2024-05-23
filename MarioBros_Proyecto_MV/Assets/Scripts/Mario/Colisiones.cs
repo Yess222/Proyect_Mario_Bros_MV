@@ -56,7 +56,16 @@ public class Colisiones : MonoBehaviour
     {
         if(collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-            mario.Hit();
+            if (mario.isInvincible)
+            {
+                Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+                enemy.HitStarman();
+            }
+            else
+            {
+                mario.Hit();
+            }
+    
         }
     }
     public void Dead()
@@ -75,8 +84,15 @@ public class Colisiones : MonoBehaviour
         Enemy enemy = collision.GetComponent<Enemy>();
         if (enemy != null)
         {
-            enemy.Stomped(transform);
-            mover.BounceUp();
+            if (mario.isInvincible)
+            {
+                enemy.HitStarman();
+            }
+            else
+            {
+                enemy.Stomped(transform);
+                mover.BounceUp();
+            }
         }
     }
 

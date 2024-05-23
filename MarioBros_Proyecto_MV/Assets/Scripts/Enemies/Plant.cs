@@ -8,4 +8,8 @@ public class Plant : Enemy
     {
         Destroy(transform.parent.gameObject);
     }
+    public override void HitStarman()
+    {
+        Destroy(transform.parent.gameObject);
+    }
 }
