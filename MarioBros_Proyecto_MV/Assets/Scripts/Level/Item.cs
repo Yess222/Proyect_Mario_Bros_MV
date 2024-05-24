@@ -9,7 +9,7 @@ public class Item : MonoBehaviour
 {
     public ItemType type;
     bool isCatched;
-    public int points;
+
     public Vector2 startVelocity;
     AutoMovement autoMovement;
     private void Awake()
@@ -29,8 +29,7 @@ public class Item : MonoBehaviour
             {
                 isCatched = true;
                 collision.gameObject.GetComponent<Mario>().CatchItem(type);
-                //Destroy(gameObject);
-                CatchItem();
+                Destroy(gameObject);
             }
         }
     }
@@ -49,8 +48,7 @@ public class Item : MonoBehaviour
             {
                 isCatched = true;
                 mario.CatchItem(type);
-                //Destroy(gameObject);
-                CatchItem();
+                Destroy(gameObject);
             }
         }   
 
@@ -83,9 +81,5 @@ public class Item : MonoBehaviour
         {
             autoMovement.ChangeDirection();
         }
-    }
-    void CatchItem(){
-        ScoreManager.Instance.SumarPuntos(points);
-        Destroy(gameObject);
     }
 }
