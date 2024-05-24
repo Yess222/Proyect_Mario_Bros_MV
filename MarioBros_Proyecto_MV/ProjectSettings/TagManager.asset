@@ -8,6 +8,7 @@ TagManager:
   - Ground
   - HeadMario
   - Plant
+  - Block
   layers:
   - Default
   - TransparentFX

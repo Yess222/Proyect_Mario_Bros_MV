@@ -59,4 +59,8 @@ public class Animaciones : MonoBehaviour
     {
         animator.SetBool("Hurt", activate);
     }
+    public void Crouch(bool activate)
+    {
+        animator.SetBool("Crouched", activate);
+    }
 }

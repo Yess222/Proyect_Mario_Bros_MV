@@ -120,5 +120,13 @@ public class Colisiones : MonoBehaviour
             }
         }
     }
+    public void StompBlock()
+    {
+        Collider2D collider2D = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+        if (collider2D.gameObject.CompareTag("Block"))
+        {
+            collider2D.gameObject.GetComponent<Block>().BreakFromTop();
+        }
+    }
 
 }

@@ -153,6 +153,14 @@ public class Block : MonoBehaviour
         //}
     }
 
+    public void BreakFromTop()
+    {
+        if (isBreakable)
+        {
+            Break();
+        }
+    }
+
     void Bounce()
     {
         if (!bouncing)

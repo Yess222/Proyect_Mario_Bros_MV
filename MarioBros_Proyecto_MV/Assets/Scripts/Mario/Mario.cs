@@ -25,6 +25,9 @@ public class Mario : MonoBehaviour
     public float hurtTime;
     float hurtTimer;
 
+    public bool isCrouched;
+
+
     //public GameObject headBox;
     bool isDead;
     private void Awake(){
@@ -35,6 +38,7 @@ public class Mario : MonoBehaviour
     }
     private void Update()
     {
+        isCrouched = false;
         if (!isDead)
         {
             if (rb2D.velocity.y < 0)
@@ -45,9 +49,26 @@ public class Mario : MonoBehaviour
             {
                 stompBox.SetActive(false);
             }
+
+            if (Input.GetKey(KeyCode.DownArrow))
+            {
+                if (colisiones.Grounded())
+                {
+                    isCrouched = true;
+                }
+            }
+
             if (Input.GetKeyDown(KeyCode.Z))
             {
-                Shoot();
+                if(isCrouched && currentState != State.Default)
+                {
+                    colisiones.StompBlock();
+                }
+                else
+                {
+                    Shoot();
+                }
+                
             }
             if (isInvincible)
             {
@@ -67,6 +88,8 @@ public class Mario : MonoBehaviour
                 }
             }
         }
+
+        animaciones.Crouch(isCrouched);
         
 
         //if(rb2D.velocity.y > 0 && !isDead)
@@ -177,7 +200,7 @@ public class Mario : MonoBehaviour
     }
     void Shoot()
     {
-        if(currentState == State.Fire)
+        if(currentState == State.Fire && !isCrouched)
         {
             GameObject newFireBall = Instantiate(fireBallPrefab, shootPos.position, Quaternion.identity);
             newFireBall.GetComponent<Fireball>().direction = transform.localScale.x;

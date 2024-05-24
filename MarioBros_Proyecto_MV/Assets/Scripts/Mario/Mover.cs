@@ -28,11 +28,14 @@ public class Mover : MonoBehaviour
 
     public GameObject headBox;
     Animaciones animaciones;
+
+    Mario mario;
     private void Awake()
     {
         rb2D = GetComponent<Rigidbody2D>();
         colisiones = GetComponent<Colisiones>();
         animaciones = GetComponent<Animaciones>();
+        mario = GetComponent<Mario>();
     }
 
     void Start()
@@ -143,6 +146,12 @@ public class Mover : MonoBehaviour
                 currentVelocity = 0;
             }
         }
+
+        if (mario.isCrouched)
+        {
+            currentVelocity = 0;
+        }
+
         Vector2 velocity = new Vector2(currentVelocity, rb2D.velocity.y);
         rb2D.velocity = velocity;
 
