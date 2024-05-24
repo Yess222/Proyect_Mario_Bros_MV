@@ -185,7 +185,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: -1
-  flipSprite: 1
 --- !u!114 &7412466829160587568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,4 +197,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad555953aaa27534d84812823bff3ae4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  points: 100

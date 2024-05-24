@@ -231,7 +231,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 4
-  points: 1000
   startVelocity: {x: 5, y: 5}
 --- !u!114 &3686463066694685466
 MonoBehaviour:
