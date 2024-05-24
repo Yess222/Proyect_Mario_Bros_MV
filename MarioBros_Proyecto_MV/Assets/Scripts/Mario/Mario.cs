@@ -26,9 +26,10 @@ public class Mario : MonoBehaviour
     float hurtTimer;
 
     public bool isCrouched;
-
+    public bool levelFinished;
 
     //public GameObject headBox;
+
     bool isDead;
     private void Awake(){
         mover = GetComponent<Mover>();
@@ -210,5 +211,9 @@ public class Mario : MonoBehaviour
     public bool IsBig()
     {
         return currentState != State.Default;
+    }
+    public void Goal(){
+        mover.DownFlagPole();
+        levelFinished = true;
     }
 }
