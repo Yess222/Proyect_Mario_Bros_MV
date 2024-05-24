@@ -118,6 +118,7 @@ public class Block : MonoBehaviour
                     {
                         Instantiate(coinBlockPrefab, transform.position, Quaternion.identity);
                         numCoins--;
+                    ScoreManager.Instance.SumarPuntos(200);
                         Bounce();
                         if (numCoins <= 0)
                         {
@@ -206,6 +207,7 @@ public class Block : MonoBehaviour
     }
     void Break()
     {
+        ScoreManager.Instance.SumarPuntos(50);
         GameObject brickPiece;
         /* Arriba a la derecha */
         brickPiece = Instantiate(brickPiecePrefab, transform.position,
