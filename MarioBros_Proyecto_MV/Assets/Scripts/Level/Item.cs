@@ -9,7 +9,7 @@ public class Item : MonoBehaviour
 {
     public ItemType type;
     bool isCatched;
-
+    public int points;
     public Vector2 startVelocity;
     AutoMovement autoMovement;
     private void Awake()
@@ -18,9 +18,9 @@ public class Item : MonoBehaviour
     }
     private void Start()
     {
-       // Invoke("StartMove", 5f);
+        // Invoke("StartMove", 5f);
     }
-    
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (!isCatched)
@@ -29,7 +29,8 @@ public class Item : MonoBehaviour
             {
                 isCatched = true;
                 collision.gameObject.GetComponent<Mario>().CatchItem(type);
-                Destroy(gameObject);
+                //Destroy(gameObject);
+                CatchItem();
             }
         }
     }
@@ -48,9 +49,10 @@ public class Item : MonoBehaviour
             {
                 isCatched = true;
                 mario.CatchItem(type);
-                Destroy(gameObject);
+                //Destroy(gameObject);
+                CatchItem();
             }
-        }   
+        }
 
     }
 
@@ -63,13 +65,13 @@ public class Item : MonoBehaviour
     }
     public void StartMove()
     {
-        if(autoMovement != null)
+        if (autoMovement != null)
         {
             autoMovement.enabled = true;
         }
         else
         {
-            if(startVelocity != Vector2.zero)
+            if (startVelocity != Vector2.zero)
             {
                 GetComponent<Rigidbody2D>().velocity = startVelocity;
             }
@@ -77,9 +79,14 @@ public class Item : MonoBehaviour
     }
     public void HitBelowBlock()
     {
-        if(autoMovement != null && autoMovement.enabled)
+        if (autoMovement != null && autoMovement.enabled)
         {
             autoMovement.ChangeDirection();
         }
+    }
+    void CatchItem()
+    {
+        ScoreManager.Instance.SumarPuntos(points);
+        Destroy(gameObject);
     }
 }

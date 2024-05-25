@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public int points;
     protected Animator animator;
     protected AutoMovement autoMovement;
     protected Rigidbody2D rb2d;
@@ -56,5 +57,10 @@ public class Enemy : MonoBehaviour
             autoMovement.enabled = false;
         }
         GetComponent<Collider2D>().enabled = false;
+        Dead();
+    }
+    protected void Dead()
+    {
+        ScoreManager.Instance.SumarPuntos(points);
     }
 }
