@@ -40,7 +40,7 @@ public class Fireball : MonoBehaviour
             Vector2 sidePoint = collision.GetContact(0).normal;
             //Debug.Log("Side point: " + sidePoint);
 
-            if (sidePoint.x != 0) //Hay colisión lateral
+            if (sidePoint.x != 0) //Hay colisiï¿½n lateral
             {
                 //Destroy(gameObject);
                 Explode(collision.GetContact(0).point);
@@ -62,6 +62,7 @@ public class Fireball : MonoBehaviour
     }
     void Explode(Vector2 point)
     {
+        AudioManager.Instance.PlayBump();
         Instantiate(explosionPrefab, point, Quaternion.identity);
         Destroy(gameObject);
     }

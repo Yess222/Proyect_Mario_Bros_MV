@@ -123,6 +123,7 @@ public class Mario : MonoBehaviour
             }
             else
             {
+                AudioManager.Instance.PlayPowerDown();
                 Time.timeScale = 0;
                 animaciones.Hit();
                 StartHurt();
@@ -148,6 +149,7 @@ public class Mario : MonoBehaviour
     {
         if (!isDead)
         {
+            AudioManager.Instance.PlayDie();
             isDead = true;
             colisiones.Dead();
             mover.Dead();
@@ -171,11 +173,13 @@ public class Mario : MonoBehaviour
                 //MagicMushroom
                 if (currentState == State.Default)
                 {
+                    AudioManager.Instance.PlayPowerUp();
                     animaciones.PowerUp();
                     Time.timeScale = 0;
                 }
                 break;
             case ItemType.FireFlower:
+                AudioManager.Instance.PlayPowerUp();
                 //FireFlower
                 if (currentState != State.Fire)
                 {
@@ -184,6 +188,7 @@ public class Mario : MonoBehaviour
                 }
                 break;
             case ItemType.Coin:
+                AudioManager.Instance.PlayCoin();
                 //Coin
                 Debug.Log("Coin");
                 break;
@@ -191,6 +196,7 @@ public class Mario : MonoBehaviour
                 //Life
                 break;
             case ItemType.Star:
+                AudioManager.Instance.PlayPowerUp();
                 //Star
                 isInvincible = true;
                 animaciones.InvincibleMode(true);
@@ -204,6 +210,7 @@ public class Mario : MonoBehaviour
     {
         if (currentState == State.Fire && !isCrouched)
         {
+            AudioManager.Instance.PlayShoot();
             GameObject newFireBall = Instantiate(fireBallPrefab, shootPos.position, Quaternion.identity);
             newFireBall.GetComponent<Fireball>().direction = transform.localScale.x;
             animaciones.Shoot();
@@ -215,6 +222,7 @@ public class Mario : MonoBehaviour
     }
     public void Goal()
     {
+        AudioManager.Instance.PlayFlagPole();
         mover.DownFlagPole();
         levelFinished = true;
     }

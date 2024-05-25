@@ -118,6 +118,7 @@ public class Block : MonoBehaviour
                     {
                         Instantiate(coinBlockPrefab, transform.position, Quaternion.identity);
                         numCoins--;
+                        AudioManager.Instance.PlayCoin();
                         ScoreManager.Instance.SumarPuntos(200);
                         Bounce();
                         if (numCoins <= 0)
@@ -172,6 +173,7 @@ public class Block : MonoBehaviour
 
     IEnumerator BounceAnimation()
     {
+        AudioManager.Instance.PlayBump();
         bouncing = true;
         float time = 0;
         float duration = 0.1f;
@@ -207,6 +209,7 @@ public class Block : MonoBehaviour
     }
     void Break()
     {
+        AudioManager.Instance.PlayBreak();
         ScoreManager.Instance.SumarPuntos(50);
 
         GameObject brickPiece;
@@ -235,6 +238,7 @@ public class Block : MonoBehaviour
 
     IEnumerator ShowItem()
     {
+        AudioManager.Instance.PlayPowerUpAppear();
         GameObject newItem = Instantiate(itemPrefab, transform.position, Quaternion.identity);
 
         //AutoMovement autoMovement = newItem.GetComponent<AutoMovement>();

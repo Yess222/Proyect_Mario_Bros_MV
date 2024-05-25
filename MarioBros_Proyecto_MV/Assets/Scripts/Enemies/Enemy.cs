@@ -49,6 +49,7 @@ public class Enemy : MonoBehaviour
 
     protected void FlipDie()
     {
+        AudioManager.Instance.PlayFlipDie();
         animator.SetTrigger("Flip");
         rb2d.velocity = Vector2.zero;
         rb2d.AddForce(Vector2.up * 6, ForceMode2D.Impulse);
