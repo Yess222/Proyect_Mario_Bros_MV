@@ -15,6 +15,6 @@ public class Goomba : Enemy
         gameObject.layer = LayerMask.NameToLayer("OnlyGround");
         Destroy(gameObject, 1f);
         autoMovement.PauseMovement();
-        Dead();
+        Dead(); //MUERTE
     }
 }
