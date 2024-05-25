@@ -37,7 +37,7 @@ public class Animaciones : MonoBehaviour
     }
     public void NewState(int state)
     {
-        animator.SetInteger("State",state);
+        animator.SetInteger("State", state);
     }
     public void PowerUp()
     {
@@ -62,5 +62,18 @@ public class Animaciones : MonoBehaviour
     public void Crouch(bool activate)
     {
         animator.SetBool("Crouched", activate);
+    }
+    public void Climb(bool activate)
+    {
+        animator.SetBool("Climb", activate);
+    }
+    public void Pause()
+    {
+        animator.speed = 0;
+    }
+    public void Continue()
+    {
+        animator.speed = 1;
+
     }
 }
