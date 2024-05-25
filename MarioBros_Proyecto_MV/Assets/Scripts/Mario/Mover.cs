@@ -193,6 +193,14 @@ public class Mover : MonoBehaviour
     {
         if (!isJumping)
         {
+            if(mario.IsBig())
+            {
+                AudioManager.Instance.PlayBigJump();        
+            }
+            else
+            {
+                AudioManager.Instance.PlayJump();
+            }
             isJumping = true;
             Vector2 fuerza = new Vector2(0, jumpForce);
             rb2D.AddForce(fuerza, ForceMode2D.Impulse);
