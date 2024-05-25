@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Mario : MonoBehaviour
 {
-    enum State { Default=0,Super=1,Fire=2}
+    enum State { Default = 0, Super = 1, Fire = 2 }
     State currentState = State.Default;
     public GameObject stompBox;
 
@@ -29,8 +29,10 @@ public class Mario : MonoBehaviour
 
 
     //public GameObject headBox;
+    public bool levelFinished;
     bool isDead;
-    private void Awake(){
+    private void Awake()
+    {
         mover = GetComponent<Mover>();
         colisiones = GetComponent<Colisiones>();
         animaciones = GetComponent<Animaciones>();
@@ -60,7 +62,7 @@ public class Mario : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Z))
             {
-                if(isCrouched && currentState != State.Default)
+                if (isCrouched && currentState != State.Default)
                 {
                     colisiones.StompBlock();
                 }
@@ -68,12 +70,12 @@ public class Mario : MonoBehaviour
                 {
                     Shoot();
                 }
-                
+
             }
             if (isInvincible)
             {
                 invincibleTimer -= Time.deltaTime;
-                if(invincibleTimer <= 0)
+                if (invincibleTimer <= 0)
                 {
                     isInvincible = false;
                     animaciones.InvincibleMode(false);
@@ -82,7 +84,7 @@ public class Mario : MonoBehaviour
             if (isHurt)
             {
                 hurtTimer -= Time.deltaTime;
-                if(hurtTimer <= 0)
+                if (hurtTimer <= 0)
                 {
                     EndHurt();
                 }
@@ -90,7 +92,7 @@ public class Mario : MonoBehaviour
         }
 
         animaciones.Crouch(isCrouched);
-        
+
 
         //if(rb2D.velocity.y > 0 && !isDead)
         //{
@@ -144,14 +146,14 @@ public class Mario : MonoBehaviour
     }
     public void Dead()
     {
-        if(!isDead)
+        if (!isDead)
         {
             isDead = true;
             colisiones.Dead();
             mover.Dead();
             animaciones.Dead();
         }
-        
+
     }
     void ChangeState(int newState)
     {
@@ -167,7 +169,7 @@ public class Mario : MonoBehaviour
         {
             case ItemType.MagicMushroom:
                 //MagicMushroom
-                if(currentState == State.Default)
+                if (currentState == State.Default)
                 {
                     animaciones.PowerUp();
                     Time.timeScale = 0;
@@ -194,13 +196,13 @@ public class Mario : MonoBehaviour
                 animaciones.InvincibleMode(true);
                 invincibleTimer = invincibleTime;
                 EndHurt();
-                break;            
+                break;
         }
 
     }
     void Shoot()
     {
-        if(currentState == State.Fire && !isCrouched)
+        if (currentState == State.Fire && !isCrouched)
         {
             GameObject newFireBall = Instantiate(fireBallPrefab, shootPos.position, Quaternion.identity);
             newFireBall.GetComponent<Fireball>().direction = transform.localScale.x;
@@ -210,5 +212,10 @@ public class Mario : MonoBehaviour
     public bool IsBig()
     {
         return currentState != State.Default;
+    }
+    public void Goal()
+    {
+        mover.DownFlagPole();
+        levelFinished = true;
     }
 }
