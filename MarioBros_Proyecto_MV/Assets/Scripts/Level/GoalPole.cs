@@ -8,6 +8,7 @@ public class GoalPole : MonoBehaviour
     public Transform flag;
     public Transform bottom;
     public float flagVelocity = 5f;
+    public GameObject floatPointsPrefab;
     bool downFlag;
     Mover mover;
     private void OnTriggerEnter2D(Collider2D collision)
@@ -51,25 +52,40 @@ public class GoalPole : MonoBehaviour
         float minPosition4 = transform.position.y + (size - 4 * size / 5f);
         //Debug.Log("Min Position 4: " + minPosition4);
 
+        int numPoints = 0;
         if (marioPosition >= minPosition1)
         {
-            ScoreManager.Instance.SumarPuntos(5000);
+            numPoints = 5000;
+            // ScoreManager.Instance.SumarPuntos(5000);
         }
         else if (marioPosition >= minPosition2)
         {
-            ScoreManager.Instance.SumarPuntos(2000);
+            numPoints = 2000;
+            // ScoreManager.Instance.SumarPuntos(2000);
         }
         else if (marioPosition >= minPosition3)
         {
-            ScoreManager.Instance.SumarPuntos(800);
+            numPoints = 800;
+            // ScoreManager.Instance.SumarPuntos(800);
         }
         else if (marioPosition >= minPosition4)
         {
-            ScoreManager.Instance.SumarPuntos(400);
+            numPoints = 400;
+            // ScoreManager.Instance.SumarPuntos(400);
         }
         else
         {
-            ScoreManager.Instance.SumarPuntos(100);
+            numPoints = 100;
+            // ScoreManager.Instance.SumarPuntos(100);
         }
+        ScoreManager.Instance.SumarPuntos(numPoints);
+
+        Vector2 positionFloatPoints = new Vector2(transform.position.x + 0.65f, bottom.position.y);
+        GameObject newFloatPoints = Instantiate(floatPointsPrefab, positionFloatPoints, Quaternion.identity);
+        FloatPoint floatPoints = newFloatPoints.GetComponent<FloatPoint>();
+        floatPoints.numPoints = numPoints;
+        floatPoints.speed = flagVelocity;
+        floatPoints.distance = flag.position.y - bottom.position.y;
+        floatPoints.destroy = false;
     }
 }

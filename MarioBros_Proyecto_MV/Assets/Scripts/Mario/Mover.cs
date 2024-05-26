@@ -52,7 +52,7 @@ public class Mover : MonoBehaviour
     {
         bool grounded = colisiones.Grounded();
         animaciones.Grounded(grounded);
-        if (mario.levelFinished)
+        if (LevelManager.Instance.levelFinished)
         {
             if (grounded && isClimbingFlagPole)
             {
@@ -115,7 +115,7 @@ public class Mover : MonoBehaviour
     }
     public void FixedUpdate()
     {
-        if (mario.levelFinished)
+        if (LevelManager.Instance.levelFinished)
         {
             if (isClimbingFlagPole)
             {

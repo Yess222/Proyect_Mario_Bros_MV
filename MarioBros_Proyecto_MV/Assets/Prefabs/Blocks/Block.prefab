@@ -268,6 +268,7 @@ MonoBehaviour:
   coinBlockPrefab: {fileID: 8063850773831616555, guid: 001f3ea631b23644da8a8d949f0cee62, type: 3}
   emptyBlock: {fileID: 21300000, guid: ff4958dd39dd0364ab0e93390c47c8f8, type: 3}
   itemPrefab: {fileID: 0}
+  floatPointsPrefab: {fileID: 6143019496171030155, guid: c33175d406fcb224e91fc3b4bfe79def, type: 3}
   onBlockLayers:
     serializedVersion: 2
     m_Bits: 2304
