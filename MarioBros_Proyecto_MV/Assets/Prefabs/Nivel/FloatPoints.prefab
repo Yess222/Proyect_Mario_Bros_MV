@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8063850773831616555
+--- !u!1 &6143019496171030155
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,39 +8,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8898809535441613038}
-  - component: {fileID: 5220883620402871176}
-  - component: {fileID: 5464741547661634735}
-  - component: {fileID: 1999893734631406794}
+  - component: {fileID: 6587479562640407608}
+  - component: {fileID: 8563856953517660232}
+  - component: {fileID: 2713616973604286131}
   m_Layer: 0
-  m_Name: BlockCoin
+  m_Name: FloatPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8898809535441613038
+--- !u!4 &6587479562640407608
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8063850773831616555}
+  m_GameObject: {fileID: 6143019496171030155}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.48, y: 3.5, z: 0}
+  m_LocalPosition: {x: 10.46, y: 1.04, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &5220883620402871176
+--- !u!212 &8563856953517660232
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8063850773831616555}
+  m_GameObject: {fileID: 6143019496171030155}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -72,50 +71,48 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1651981875
+  m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 2063747024, guid: 45a2a88d219f61441910378f6398ef03, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ebd391bc54746bb4bb4d64eff7205238, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.5, y: 0.875}
+  m_Size: {x: 0.6875, y: 0.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5464741547661634735
+--- !u!114 &2713616973604286131
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8063850773831616555}
+  m_GameObject: {fileID: 6143019496171030155}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81623b7862eea9c4a90f4a9e92377baf, type: 3}
+  m_Script: {fileID: 11500000, guid: 8fd29c9e587565b4a8e516b7cc121bf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprites:
-  - {fileID: -428357537, guid: 45a2a88d219f61441910378f6398ef03, type: 3}
-  - {fileID: 2081833353, guid: 45a2a88d219f61441910378f6398ef03, type: 3}
-  - {fileID: 2063747024, guid: 45a2a88d219f61441910378f6398ef03, type: 3}
-  - {fileID: -883694562, guid: 45a2a88d219f61441910378f6398ef03, type: 3}
-  frameTime: 0.1
-  stop: 0
-  loop: 1
---- !u!114 &1999893734631406794
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8063850773831616555}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea9088f0201dee2458066ce4f8cf5619, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  floatPointsPrefab: {fileID: 6143019496171030155, guid: c33175d406fcb224e91fc3b4bfe79def, type: 3}
+  numPoints: 2000
+  distance: 3
+  speed: 2.5
+  destroy: 1
+  points:
+  - numPoints: 100
+    sprite: {fileID: 21300000, guid: ebd391bc54746bb4bb4d64eff7205238, type: 3}
+  - numPoints: 200
+    sprite: {fileID: 21300000, guid: f5eecdb63b184d74a883a6e9696efa1c, type: 3}
+  - numPoints: 400
+    sprite: {fileID: 21300000, guid: 7de7d2ea8972e6c498b36b4c681d29d2, type: 3}
+  - numPoints: 800
+    sprite: {fileID: 21300000, guid: be6ad6f7c4f33844ca89295d2fdf8743, type: 3}
+  - numPoints: 1000
+    sprite: {fileID: 21300000, guid: 3abe597c647d63344a88beb52595d536, type: 3}
+  - numPoints: 2000
+    sprite: {fileID: 21300000, guid: 952369c715b2c8d4894001174a6859ae, type: 3}
+  - numPoints: 5000
+    sprite: {fileID: 21300000, guid: cefe90b1e29046745a05fa64eea43d23, type: 3}

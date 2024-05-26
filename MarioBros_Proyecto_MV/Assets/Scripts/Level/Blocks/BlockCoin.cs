@@ -4,8 +4,17 @@ using UnityEngine;
 
 public class BlockCoin : MonoBehaviour
 {
+    public GameObject floatPointsPrefab;
     void Start()
     {
+        AudioManager.Instance.PlayCoin();
+        ScoreManager.Instance.SumarPuntos(200);
+
+        Vector2 positionFloatPoints = new Vector2(transform.position.x , transform.position.y + 1f);
+
+        GameObject newFloatPoints = Instantiate(floatPointsPrefab, positionFloatPoints, Quaternion.identity);
+        FloatPoint floatPoints = newFloatPoints.GetComponent<FloatPoint>();
+        floatPoints.numPoints = 200;
         StartCoroutine(Animation());
     }
 

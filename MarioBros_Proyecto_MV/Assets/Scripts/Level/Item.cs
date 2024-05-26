@@ -12,6 +12,8 @@ public class Item : MonoBehaviour
     public int points;
     public Vector2 startVelocity;
     AutoMovement autoMovement;
+
+    public GameObject floatPointsPrefab;
     private void Awake()
     {
         autoMovement = GetComponent<AutoMovement>();
@@ -87,6 +89,10 @@ public class Item : MonoBehaviour
     void CatchItem()
     {
         ScoreManager.Instance.SumarPuntos(points);
+        GameObject newFloatPoints = Instantiate(floatPointsPrefab, transform.position, Quaternion.identity);
+        FloatPoint floatPoints = newFloatPoints.GetComponent<FloatPoint>();
+        floatPoints.numPoints = points;
+
         Destroy(gameObject);
     }
 }

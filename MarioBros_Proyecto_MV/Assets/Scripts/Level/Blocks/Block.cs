@@ -17,6 +17,7 @@ public class Block : MonoBehaviour
 
     public GameObject itemPrefab;
 
+    //public GameObject floatPointsPrefab;
     //List<GameObject> enemiesOnBlock = new List<GameObject>();
 
     public LayerMask onBlockLayers;
@@ -118,8 +119,12 @@ public class Block : MonoBehaviour
                     {
                         Instantiate(coinBlockPrefab, transform.position, Quaternion.identity);
                         numCoins--;
-                        AudioManager.Instance.PlayCoin();
-                        ScoreManager.Instance.SumarPuntos(200);
+                        // AudioManager.Instance.PlayCoin();
+                        // ScoreManager.Instance.SumarPuntos(200);
+                        // GameObject newFloatPoints = Instantiate(floatPointsPrefab, transform.position, Quaternion.identity);
+                        // FloatPoint floatPoints = newFloatPoints.GetComponent<FloatPoint>();
+                        // floatPoints.numPoints = 200;
+
                         Bounce();
                         if (numCoins <= 0)
                         {

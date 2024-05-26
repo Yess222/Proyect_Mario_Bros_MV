@@ -29,8 +29,10 @@ public class Mario : MonoBehaviour
 
 
     //public GameObject headBox;
-    public bool levelFinished;
+    //public bool levelFinished;
     bool isDead;
+
+    // public  HUB hub;
     private void Awake()
     {
         mover = GetComponent<Mover>();
@@ -190,7 +192,8 @@ public class Mario : MonoBehaviour
             case ItemType.Coin:
                 AudioManager.Instance.PlayCoin();
                 //Coin
-                Debug.Log("Coin");
+                //Debug.Log("Coin");
+                LevelManager.Instance.AddCoins();
                 break;
             case ItemType.Life:
                 //Life
@@ -224,6 +227,7 @@ public class Mario : MonoBehaviour
     {
         AudioManager.Instance.PlayFlagPole();
         mover.DownFlagPole();
-        levelFinished = true;
+        //levelFinished = true;
+        LevelManager.Instance.LevelFinished();
     }
 }
