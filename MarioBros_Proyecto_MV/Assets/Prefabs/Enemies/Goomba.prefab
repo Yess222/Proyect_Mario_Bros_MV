@@ -199,3 +199,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points: 100
+  floatPointsPrefab: {fileID: 6143019496171030155, guid: c33175d406fcb224e91fc3b4bfe79def, type: 3}
