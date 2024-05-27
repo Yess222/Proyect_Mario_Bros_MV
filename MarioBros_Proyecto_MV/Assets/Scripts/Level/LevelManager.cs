@@ -39,8 +39,8 @@ public class LevelManager : MonoBehaviour
         
             if(timer <= 0)
             {
-                //Mario mario = FindAnyObjectByType<Mario>();
-                // mario.Dead();
+                Mario mario = FindAnyObjectByType<Mario>();
+                mario.Dead();
                 timer = 0;
             }
             hub.UpdateTime(timer);
