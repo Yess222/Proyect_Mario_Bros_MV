@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    public HUB hub;
-    int coins;
+    // public HUB hub;
+    // int coins;
 
     public int time;
     public float timer;
@@ -15,7 +15,7 @@ public class LevelManager : MonoBehaviour
 
     private void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
         }
@@ -23,34 +23,29 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        coins = 0;
-        hub.UpdateCoins(coins);
+        // coins = 0;
+        // hub.UpdateCoins(coins);
         timer = time;
-        hub.UpdateTime(timer);
+        GameManager.Instance.hud.UpdateTime(timer);
         mario = FindAnyObjectByType<Mario>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!levelFinished)
+        if (!levelFinished)
         {
-            timer -= Time.deltaTime /0.4f; //1 segundo del juego equivale a 0.4s. reales
-        
-            if(timer <= 0)
+            timer -= Time.deltaTime / 0.4f; //1 segundo del juego equivale a 0.4s. reales
+
+            if (timer <= 0)
             {
-                Mario mario = FindAnyObjectByType<Mario>();
-                mario.Dead();
+                //Mario mario = FindAnyObjectByType<Mario>();
+                // mario.Dead();
+                GameManager.Instance.OutOfTime();
                 timer = 0;
             }
-            hub.UpdateTime(timer);
+            GameManager.Instance.hud.UpdateTime(timer);
         }
-        
-    }
-    public void AddCoins()
-    {
-        coins++;
-        hub.UpdateCoins(coins);
     }
     public void LevelFinished()
     {
@@ -63,10 +58,10 @@ public class LevelManager : MonoBehaviour
 
         int timeLeft = Mathf.RoundToInt(timer);
 
-        while(timeLeft > 0)
+        while (timeLeft > 0)
         {
             timeLeft--;
-            hub.UpdateTime(timeLeft);
+            GameManager.Instance.hud.UpdateTime(timer);
             ScoreManager.Instance.SumarPuntos(50);
             AudioManager.Instance.PlayCoin();
             yield return new WaitForSeconds(0.05f);

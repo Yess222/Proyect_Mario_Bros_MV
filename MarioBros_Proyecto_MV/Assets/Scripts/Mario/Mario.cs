@@ -157,6 +157,7 @@ public class Mario : MonoBehaviour
             colisiones.Dead();
             mover.Dead();
             animaciones.Dead();
+            GameManager.Instance.LoseLife();
         }
 
     }
@@ -197,10 +198,12 @@ public class Mario : MonoBehaviour
                 AudioManager.Instance.PlayCoin();
                 //Coin
                 //Debug.Log("Coin");
-                LevelManager.Instance.AddCoins();
+                //LevelManager.Instance.AddCoins();
+                GameManager.Instance.AddCoins();
                 break;
             case ItemType.Life:
                 //Life
+                GameManager.Instance.NewLife();
                 break;
             case ItemType.Star:
                 AudioManager.Instance.PlayPowerUp();
