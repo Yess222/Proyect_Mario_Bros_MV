@@ -53,6 +53,15 @@ public class Koopa : Enemy
             isRolling = true;
          }         
       }
+      DestroyOutCamera destroyOutCamera = GetComponent<DestroyOutCamera>();
+      if(isRolling)
+      {
+         destroyOutCamera.onlyBack = false;
+      }
+      else
+      {
+         destroyOutCamera.onlyBack = true;
+      }
       gameObject.layer = LayerMask.NameToLayer("OnlyGround");
       Invoke("ResetLayer", 0.1f);
       stoppedTimer = 0;
