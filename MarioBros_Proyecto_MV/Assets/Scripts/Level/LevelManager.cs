@@ -39,8 +39,6 @@ public class LevelManager : MonoBehaviour
 
             if (timer <= 0)
             {
-                //Mario mario = FindAnyObjectByType<Mario>();
-                // mario.Dead();
                 GameManager.Instance.OutOfTime();
                 timer = 0;
             }
