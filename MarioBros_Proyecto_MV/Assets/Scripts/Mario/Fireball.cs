@@ -7,7 +7,7 @@ public class Fireball : MonoBehaviour
     public float direction;
     public float speed;
     public float bounceForce;
-
+    bool colision;
     public GameObject explosionPrefab;
     Rigidbody2D rb2D;
     private void Awake()
@@ -28,6 +28,7 @@ public class Fireball : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        colision = true;
         Enemy enemy = collision.gameObject.GetComponent<Enemy>();
         if (enemy != null)
         {
@@ -40,7 +41,7 @@ public class Fireball : MonoBehaviour
             Vector2 sidePoint = collision.GetContact(0).normal;
             //Debug.Log("Side point: " + sidePoint);
 
-            if (sidePoint.x != 0) //Hay colisi�n lateral
+            if (Mathf.Abs(sidePoint.x) > 0.01f) //Hay colisi�n lateral
             {
                 //Destroy(gameObject);
                 Explode(collision.GetContact(0).point);
@@ -58,6 +59,17 @@ public class Fireball : MonoBehaviour
                 //Destroy(gameObject);
                 Explode(collision.GetContact(0).point);
             }
+        }
+    }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (colision)
+        {
+            colision = false;
+        }
+        else 
+        {
+            Explode(collision.GetContact(0).point);
         }
     }
     void Explode(Vector2 point)

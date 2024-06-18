@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6703181628066851621}
   - component: {fileID: 1418499127694271532}
   - component: {fileID: 171913664705855931}
+  - component: {fileID: -7662751946294647666}
   m_Layer: 8
   m_Name: Koopa
   m_TagString: Untagged
@@ -203,3 +204,15 @@ MonoBehaviour:
   maxStoppedTime: 5
   rollingSpeed: 5
   isRolling: 0
+--- !u!114 &-7662751946294647666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2787746578091886457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f26d2786ad20b5459f5f6a50b35fa66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
