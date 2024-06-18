@@ -31,7 +31,7 @@ public class Block : MonoBehaviour
     {
         Collider2D[] colliders = Physics2D.OverlapBoxAll(boxCollider2D.bounds.center +
             Vector3.up * boxCollider2D.bounds.extents.y, boxCollider2D.bounds.size * 0.5f, 0, onBlockLayers);
-        foreach(Collider2D c in colliders)
+        foreach (Collider2D c in colliders)
         {
             Enemy enemy = c.GetComponent<Enemy>();
             if (enemy != null)
@@ -41,7 +41,7 @@ public class Block : MonoBehaviour
             else
             {
                 Item item = c.GetComponent<Item>();
-                if(item != null)
+                if (item != null)
                 {
                     item.HitBelowBlock();
                 }
@@ -51,7 +51,7 @@ public class Block : MonoBehaviour
     }
     private void OnDrawGizmos()
     {
-        if(boxCollider2D != null)
+        if (boxCollider2D != null)
         {
             Gizmos.DrawWireCube(boxCollider2D.bounds.center +
                 Vector3.up * boxCollider2D.bounds.extents.y, boxCollider2D.bounds.size * 0.5f);
@@ -89,7 +89,7 @@ public class Block : MonoBehaviour
     //            }
     //        }
     //    }
-        
+
     //}
 
     //private void OnTriggerEnter2D(Collider2D collision)
@@ -97,66 +97,67 @@ public class Block : MonoBehaviour
     {
         //if (collision.CompareTag("HeadMario"))
         //{
-            
-            //collision.transform.parent.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-            if (isBreakable)
-            {
+
+        //collision.transform.parent.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        if (isBreakable)
+        {
             if (marioBig)
             {
                 Break();
             }
             else
             {
-                Bounce(); 
+                Bounce();
             }
-                
-            }
-            else if (!isEmpty)
-            {
-                if (numCoins > 0)
-                {
-                    if (!bouncing)
-                    {
-                        Instantiate(coinBlockPrefab, transform.position, Quaternion.identity);
-                        numCoins--;
-                        // AudioManager.Instance.PlayCoin();
-                        // ScoreManager.Instance.SumarPuntos(200);
-                        // GameObject newFloatPoints = Instantiate(floatPointsPrefab, transform.position, Quaternion.identity);
-                        // FloatPoint floatPoints = newFloatPoints.GetComponent<FloatPoint>();
-                        // floatPoints.numPoints = 200;
 
-                        Bounce();
-                        if (numCoins <= 0)
-                        {
-                            isEmpty = true;
-                        }
-                    }
-                }else if(itemPrefab != null)
+        }
+        else if (!isEmpty)
+        {
+            if (numCoins > 0)
+            {
+                if (!bouncing)
                 {
-                    if (!bouncing)
+                    Instantiate(coinBlockPrefab, transform.position, Quaternion.identity);
+                    numCoins--;
+                    // AudioManager.Instance.PlayCoin();
+                    // ScoreManager.Instance.SumarPuntos(200);
+                    // GameObject newFloatPoints = Instantiate(floatPointsPrefab, transform.position, Quaternion.identity);
+                    // FloatPoint floatPoints = newFloatPoints.GetComponent<FloatPoint>();
+                    // floatPoints.numPoints = 200;
+
+                    Bounce();
+                    if (numCoins <= 0)
                     {
-                        StartCoroutine(ShowItem());
-                        Bounce();
                         isEmpty = true;
                     }
                 }
             }
+            else if (itemPrefab != null)
+            {
+                if (!bouncing)
+                {
+                    StartCoroutine(ShowItem());
+                    Bounce();
+                    isEmpty = true;
+                }
+            }
+        }
         if (!isEmpty)
         {
             OnTheBlock();
         }
 
-            //if (!isEmpty)
-            //{
-            //    foreach (GameObject enemyOnBlock in enemiesOnBlock)
-            //    {
-            //        enemyOnBlock.GetComponent<Enemy>().HitBelowBlock();
-            //    }
-            //}
+        //if (!isEmpty)
+        //{
+        //    foreach (GameObject enemyOnBlock in enemiesOnBlock)
+        //    {
+        //        enemyOnBlock.GetComponent<Enemy>().HitBelowBlock();
+        //    }
+        //}
 
-            //Debug.Log("Head Mario");
-            //Bounce();
-            //Break();
+        //Debug.Log("Head Mario");
+        //Bounce();
+        //Break();
         //}
     }
 
@@ -202,10 +203,10 @@ public class Block : MonoBehaviour
         }
         transform.position = startPosition;
         bouncing = false;
-        if(isEmpty)
+        if (isEmpty)
         {
-            SpritesAnimation spritesAnimation = GetComponent <SpritesAnimation>();
-            if(spritesAnimation != null)
+            SpritesAnimation spritesAnimation = GetComponent<SpritesAnimation>();
+            if (spritesAnimation != null)
             {
                 spritesAnimation.stop = true;
             }
@@ -258,7 +259,7 @@ public class Block : MonoBehaviour
         Vector2 startPosition = newItem.transform.position;
         Vector2 targetPosition = (Vector2)transform.position + Vector2.up * 0.5f;
 
-        while(time < duration)
+        while (time < duration)
         {
             newItem.transform.position = Vector2.Lerp(startPosition, targetPosition, time / duration);
             time += Time.deltaTime;

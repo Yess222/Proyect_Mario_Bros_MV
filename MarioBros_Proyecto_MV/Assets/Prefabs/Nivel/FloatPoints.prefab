@@ -116,3 +116,5 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 952369c715b2c8d4894001174a6859ae, type: 3}
   - numPoints: 5000
     sprite: {fileID: 21300000, guid: cefe90b1e29046745a05fa64eea43d23, type: 3}
+  - numPoints: 0
+    sprite: {fileID: 21300000, guid: 5e25145588e901a499086bc970f0b25d, type: 3}
