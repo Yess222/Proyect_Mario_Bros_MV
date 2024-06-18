@@ -121,7 +121,7 @@ public class Mover : MonoBehaviour
             {
                 rb2D.MovePosition(rb2D.position + Vector2.down * climbPoleSpeed * Time.fixedDeltaTime);
             }
-            else if(isAutoWalk)
+            else if (isAutoWalk)
             {
                 Vector2 velocity = new Vector2(currentVelocity, rb2D.velocity.y);
                 rb2D.velocity = velocity;
@@ -132,50 +132,57 @@ public class Mover : MonoBehaviour
         {
             isSkidding = false;
             currentVelocity = rb2D.velocity.x;
-            if (currentDirection > 0)
-            {
-                if (currentVelocity < 0)
-                {
-                    currentVelocity += (acceleration + friction) * Time.deltaTime;
-                    isSkidding = true;
-                }
-                else if (currentVelocity < maxVelocity)
-                {
-                    currentVelocity += acceleration * Time.deltaTime;
-                    transform.localScale = new Vector2(1, 1);
-                }
-            }
-            else if (currentDirection < 0)
-            {
-                if (currentVelocity > 0)
-                {
-                    currentVelocity -= (acceleration + friction) * Time.deltaTime;
-                    isSkidding = true;
 
-                }
-                else if (currentVelocity > -maxVelocity)
-                {
-                    currentVelocity -= acceleration * Time.deltaTime;
-                    transform.localScale = new Vector2(-1, 1);
-                }
+            if (colisiones.CheckCollision((int)currentDirection))
+            {
+                currentVelocity = 0;
             }
             else
             {
-                if (currentVelocity > 1f)
+                if (currentDirection > 0)
                 {
-                    currentVelocity -= friction * Time.deltaTime;
-
+                    if (currentVelocity < 0)
+                    {
+                        currentVelocity += (acceleration + friction) * Time.deltaTime;
+                        isSkidding = true;
+                    }
+                    else if (currentVelocity < maxVelocity)
+                    {
+                        currentVelocity += acceleration * Time.deltaTime;
+                        transform.localScale = new Vector2(1, 1);
+                    }
                 }
-                else if (currentVelocity < -1f)
+                else if (currentDirection < 0)
                 {
-                    currentVelocity += friction * Time.deltaTime;
+                    if (currentVelocity > 0)
+                    {
+                        currentVelocity -= (acceleration + friction) * Time.deltaTime;
+                        isSkidding = true;
+
+                    }
+                    else if (currentVelocity > -maxVelocity)
+                    {
+                        currentVelocity -= acceleration * Time.deltaTime;
+                        transform.localScale = new Vector2(-1, 1);
+                    }
                 }
                 else
                 {
-                    currentVelocity = 0;
+                    if (currentVelocity > 1f)
+                    {
+                        currentVelocity -= friction * Time.deltaTime;
+
+                    }
+                    else if (currentVelocity < -1f)
+                    {
+                        currentVelocity += friction * Time.deltaTime;
+                    }
+                    else
+                    {
+                        currentVelocity = 0;
+                    }
                 }
             }
-
             if (mario.isCrouched)
             {
                 currentVelocity = 0;
@@ -193,9 +200,9 @@ public class Mover : MonoBehaviour
     {
         if (!isJumping)
         {
-            if(mario.IsBig())
+            if (mario.IsBig())
             {
-                AudioManager.Instance.PlayBigJump();        
+                AudioManager.Instance.PlayBigJump();
             }
             else
             {
@@ -246,7 +253,7 @@ public class Mover : MonoBehaviour
         rb2D.velocity = Vector2.zero;
         animaciones.Pause();
         yield return new WaitForSeconds(0.25f);
-        while(!isFlagDown)
+        while (!isFlagDown)
         {
             yield return null;
         }
