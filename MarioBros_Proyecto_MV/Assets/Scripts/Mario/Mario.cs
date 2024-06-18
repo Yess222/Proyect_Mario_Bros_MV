@@ -127,6 +127,7 @@ public class Mario : MonoBehaviour
             {
                 AudioManager.Instance.PlayPowerDown();
                 Time.timeScale = 0;
+                rb2D.velocity = Vector2.zero;
                 animaciones.Hit();
                 StartHurt();
             }
@@ -178,6 +179,7 @@ public class Mario : MonoBehaviour
                     AudioManager.Instance.PlayPowerUp();
                     animaciones.PowerUp();
                     Time.timeScale = 0;
+                    rb2D.velocity = Vector2.zero;
                 }
                 break;
             case ItemType.FireFlower:
@@ -187,6 +189,8 @@ public class Mario : MonoBehaviour
                 {
                     animaciones.PowerUp();
                     Time.timeScale = 0;
+                    rb2D.velocity = Vector2.zero;
+
                 }
                 break;
             case ItemType.Coin:
