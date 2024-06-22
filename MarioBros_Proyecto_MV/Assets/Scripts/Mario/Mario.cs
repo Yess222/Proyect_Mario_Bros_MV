@@ -8,7 +8,7 @@ public class Mario : MonoBehaviour
     State currentState = State.Default;
     public GameObject stompBox;
 
-    Mover mover;
+    public Mover mover;
     Colisiones colisiones;
     Animaciones animaciones;
     Rigidbody2D rb2D;

@@ -15,6 +15,7 @@ public class CameraFollow : MonoBehaviour
     public Transform colLeft;
     public Transform colRight;
 
+    public bool canMove;
     float camWidth;
     float lastPos;
 
@@ -39,7 +40,7 @@ public class CameraFollow : MonoBehaviour
     }
     void Update()
     {
-        if(target != null)
+        if(target != null && canMove)
         {
             //transform.position = new Vector3(target.position.x + followAhead, target.position.y, target.position.z);
             float newPosX = target.position.x + followAhead;
@@ -62,6 +63,7 @@ public class CameraFollow : MonoBehaviour
         newPosX = Mathf.Clamp(newPosX, lastPos, maxPosX);
         transform.position = new Vector3(newPosX, transform.position.y, transform.position.z);
         lastPos = newPosX;
+        canMove = true;
     }
     public float PositionInCamera(float pos, float width, out bool limitRight, out bool limitLeft)
     {

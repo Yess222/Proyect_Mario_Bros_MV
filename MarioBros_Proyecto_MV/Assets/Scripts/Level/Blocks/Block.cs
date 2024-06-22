@@ -12,20 +12,33 @@ public class Block : MonoBehaviour
 
     bool bouncing;
 
+    public Sprite defaultBlock;
+    public Sprite hitBlock;
+    public Sprite hitEmptyBlock;
     public Sprite emptyBlock;
     bool isEmpty;
 
     public GameObject itemPrefab;
+    public GameObject itemFlowerPrefab;
 
     //public GameObject floatPointsPrefab;
     //List<GameObject> enemiesOnBlock = new List<GameObject>();
 
     public LayerMask onBlockLayers;
     BoxCollider2D boxCollider2D;
+    SpriteRenderer spriteRenderer;
 
     private void Awake()
     {
         boxCollider2D = GetComponent<BoxCollider2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+    private void Start()
+    {
+        if(spriteRenderer.sprite == null)
+        {
+            boxCollider2D.enabled = false;
+        }
     }
     void OnTheBlock()
     {
@@ -95,6 +108,11 @@ public class Block : MonoBehaviour
     //private void OnTriggerEnter2D(Collider2D collision)
     public void HeadCollision(bool marioBig)
     {
+        if(spriteRenderer.sprite == null)
+        {
+            boxCollider2D.enabled = true;
+            spriteRenderer.sprite = emptyBlock;
+        }
         //if (collision.CompareTag("HeadMario"))
         //{
 
@@ -125,11 +143,12 @@ public class Block : MonoBehaviour
                     // FloatPoint floatPoints = newFloatPoints.GetComponent<FloatPoint>();
                     // floatPoints.numPoints = 200;
 
-                    Bounce();
+                    
                     if (numCoins <= 0)
                     {
                         isEmpty = true;
                     }
+                    Bounce();
                 }
             }
             else if (itemPrefab != null)
@@ -137,8 +156,9 @@ public class Block : MonoBehaviour
                 if (!bouncing)
                 {
                     StartCoroutine(ShowItem());
-                    Bounce();
+                    
                     isEmpty = true;
+                    Bounce();
                 }
             }
         }
@@ -179,6 +199,24 @@ public class Block : MonoBehaviour
 
     IEnumerator BounceAnimation()
     {
+        //Hit
+        if (isEmpty)
+        {
+            SpritesAnimation spritesAnimation = GetComponent<SpritesAnimation>();
+            if (spritesAnimation != null)
+            {
+                spritesAnimation.stop = true;
+            }
+            spriteRenderer.sprite = hitEmptyBlock;
+        }
+        else
+        {
+            if(hitBlock != null)
+            {
+                spriteRenderer.sprite = hitBlock;
+            }
+        }
+
         AudioManager.Instance.PlayBump();
         bouncing = true;
         float time = 0;
@@ -203,6 +241,8 @@ public class Block : MonoBehaviour
         }
         transform.position = startPosition;
         bouncing = false;
+
+
         if (isEmpty)
         {
             SpritesAnimation spritesAnimation = GetComponent<SpritesAnimation>();
@@ -210,7 +250,19 @@ public class Block : MonoBehaviour
             {
                 spritesAnimation.stop = true;
             }
-            GetComponent<SpriteRenderer>().sprite = emptyBlock;
+            spriteRenderer.sprite = emptyBlock;
+        }
+        else
+        {
+            SpritesAnimation spritesAnimation = GetComponent<SpritesAnimation>();
+            if (spritesAnimation != null)
+            {
+                spritesAnimation.stop = false;
+            }
+            else
+            {
+                spriteRenderer.sprite = defaultBlock;
+            }
         }
     }
     void Break()
@@ -222,22 +274,22 @@ public class Block : MonoBehaviour
         /* Arriba a la derecha */
         brickPiece = Instantiate(brickPiecePrefab, transform.position,
             Quaternion.Euler(new Vector3(0, 0, 0)));
-        brickPiece.GetComponent<Rigidbody2D>().velocity = new Vector2(6f, 12f);
+        brickPiece.GetComponent<Rigidbody2D>().velocity = new Vector2(3f, 8f);
 
         /* Arriba a la izquierda */
         brickPiece = Instantiate(brickPiecePrefab, transform.position,
             Quaternion.Euler(new Vector3(0, 0, 90)));
-        brickPiece.GetComponent<Rigidbody2D>().velocity = new Vector2(-6f, 12f);
+        brickPiece.GetComponent<Rigidbody2D>().velocity = new Vector2(-3f, 8f);
 
         /* Abajo a la derecha */
         brickPiece = Instantiate(brickPiecePrefab, transform.position,
             Quaternion.Euler(new Vector3(0, 0, -90)));
-        brickPiece.GetComponent<Rigidbody2D>().velocity = new Vector2(6f, -8f);
+        brickPiece.GetComponent<Rigidbody2D>().velocity = new Vector2(3f, 0f);
 
         /* Abajo a la izquierda */
         brickPiece = Instantiate(brickPiecePrefab, transform.position,
             Quaternion.Euler(new Vector3(0, 0, 180)));
-        brickPiece.GetComponent<Rigidbody2D>().velocity = new Vector2(-6f, -8f);
+        brickPiece.GetComponent<Rigidbody2D>().velocity = new Vector2(-3f, 0f);
 
         Destroy(gameObject);
     }
@@ -245,7 +297,17 @@ public class Block : MonoBehaviour
     IEnumerator ShowItem()
     {
         AudioManager.Instance.PlayPowerUpAppear();
-        GameObject newItem = Instantiate(itemPrefab, transform.position, Quaternion.identity);
+        GameObject newItem;
+
+        if(itemFlowerPrefab != null && Mario.Instance.IsBig())
+        {
+            newItem = Instantiate(itemFlowerPrefab, transform.position, Quaternion.identity);
+        }
+        else
+        {
+            newItem = Instantiate(itemPrefab, transform.position, Quaternion.identity);
+        }
+
 
         //AutoMovement autoMovement = newItem.GetComponent<AutoMovement>();
         //if(autoMovement != null)
