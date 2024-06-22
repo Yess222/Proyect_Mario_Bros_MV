@@ -29,10 +29,11 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    //Start is called before the first frame update
     void Start()
     {
         lives = 3;
-        coins = 97;
+        coins = 0;
         hud.UpdateCoins(coins);
     }
     public void AddCoins()
@@ -41,6 +42,7 @@ public class GameManager : MonoBehaviour
         if (coins > 99)
         {
             coins = 0;
+            //lives++
             NewLife();
         }
         hud.UpdateCoins(coins);
@@ -114,4 +116,11 @@ public class GameManager : MonoBehaviour
             LoseLife();
         }
     }
+
+    public void GoToLevel(string sceneName)
+    {
+        isLevelCheckPoint = false;
+        SceneManager.LoadScene(sceneName);
+    }
+
 }
