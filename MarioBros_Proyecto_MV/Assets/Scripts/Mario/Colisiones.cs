@@ -89,6 +89,15 @@ public class Colisiones : MonoBehaviour
         }
     }
 
+    public void Respawn()
+    {
+        gameObject.layer = LayerMask.NameToLayer("Player");
+        foreach (Transform t in transform)
+        {
+            t.gameObject.layer = LayerMask.NameToLayer("Player");
+        }
+    }
+
     public void HurtCollision(bool activate)
     {
         if (activate)

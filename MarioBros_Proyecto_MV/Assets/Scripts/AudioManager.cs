@@ -26,6 +26,11 @@ public class AudioManager : MonoBehaviour
         {
             Instance = this;
             audioSource = GetComponent<AudioSource>();
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
     public void PlayJump()

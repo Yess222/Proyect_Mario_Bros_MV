@@ -12,7 +12,9 @@ public class CameraAspectRation : MonoBehaviour
 
         float scaleHeight = screenAspect / targetAspect;
         float scaleWidth = 1f / scaleHeight;
+
         Camera cam = GetComponent<Camera>();
+
         Rect rect = cam.rect;
         rect.width = scaleWidth;
         rect.height = 1.0f;

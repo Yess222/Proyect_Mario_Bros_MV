@@ -11,8 +11,12 @@ public class LevelManager : MonoBehaviour
     public float timer;
     Mario mario;
     public bool levelFinished;
-    public static LevelManager Instance;
 
+    public Transform startPoint;
+    public Transform checkPoint;
+
+    public CameraFollow cameraFollow;
+    public static LevelManager Instance;
     private void Awake()
     {
         if (Instance == null)
@@ -27,7 +31,10 @@ public class LevelManager : MonoBehaviour
         // hub.UpdateCoins(coins);
         timer = time;
         GameManager.Instance.hud.UpdateTime(timer);
+
         mario = FindAnyObjectByType<Mario>();
+        cameraFollow = Camera.main.GetComponent<CameraFollow>();
+        GameManager.Instance.LevelLoaded();
     }
 
     // Update is called once per frame

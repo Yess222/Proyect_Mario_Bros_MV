@@ -195,5 +195,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onlyBack: 0
-  minDistance: 0
+  minDistance: 20
   parent: {fileID: 0}
