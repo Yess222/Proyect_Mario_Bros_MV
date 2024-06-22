@@ -173,10 +173,15 @@ public class Mario : MonoBehaviour
     }
     public void Respawn(Vector2 pos)
     {
+        if (isDead)
+        {
+            animaciones.Reset();
+            currentState = State.Default;
+        }
         isDead = false;
         colisiones.Respawn();
         mover.Respawn();
-        animaciones.Reset();
+
         transform.position = pos;
     }
     void ChangeState(int newState)

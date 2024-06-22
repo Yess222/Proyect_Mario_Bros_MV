@@ -19,6 +19,9 @@ public class LevelManager : MonoBehaviour
     public Transform checkPoint;
 
     public CameraFollow cameraFollow;
+
+    public bool countPoints;
+
     public static LevelManager Instance;
     private void Awake()
     {
@@ -71,10 +74,11 @@ public class LevelManager : MonoBehaviour
         while (timeLeft > 0)
         {
             timeLeft--;
-            GameManager.Instance.hud.UpdateTime(timer);
+            GameManager.Instance.hud.UpdateTime(timeLeft);
             ScoreManager.Instance.SumarPuntos(50);
             AudioManager.Instance.PlayCoin();
             yield return new WaitForSeconds(0.05f);
         }
+        countPoints = true;
     }
 }

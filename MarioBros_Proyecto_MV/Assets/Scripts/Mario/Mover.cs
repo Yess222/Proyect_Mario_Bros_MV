@@ -121,21 +121,25 @@ public class Mover : MonoBehaviour
                     currentDirection = Direction.Right;
                 }
             }
-        }
-        bool limitRight;
-        bool limitLeft;
-        
-        if(LevelManager.Instance.cameraFollow != null)
-        {
-            float posX = LevelManager.Instance.cameraFollow.PositionInCamera(transform.position.x, spriteRenderer.bounds.extents.x,
-            out limitRight, out limitLeft);
-            if (limitRight && (currentDirection == Direction.Right || currentDirection == Direction.None)) {
-                rb2D.velocity = new Vector2(0, rb2D.velocity.y);
-            }else if (limitLeft && (currentDirection == Direction.Left || currentDirection == Direction.None)){
-                rb2D.velocity = new Vector2(0, rb2D.velocity.y);
+            bool limitRight;
+            bool limitLeft;
+
+            if (LevelManager.Instance.cameraFollow != null)
+            {
+                float posX = LevelManager.Instance.cameraFollow.PositionInCamera(transform.position.x, spriteRenderer.bounds.extents.x,
+                out limitRight, out limitLeft);
+                if (limitRight && (currentDirection == Direction.Right || currentDirection == Direction.None))
+                {
+                    rb2D.velocity = new Vector2(0, rb2D.velocity.y);
+                }
+                else if (limitLeft && (currentDirection == Direction.Left || currentDirection == Direction.None))
+                {
+                    rb2D.velocity = new Vector2(0, rb2D.velocity.y);
+                }
+                transform.position = new Vector2(posX, transform.position.y);
             }
-            transform.position = new Vector2(posX, transform.position.y);
         }
+        
     }
     public void FixedUpdate()
     {
