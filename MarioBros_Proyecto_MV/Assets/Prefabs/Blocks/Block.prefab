@@ -266,9 +266,11 @@ MonoBehaviour:
   brickPiecePrefab: {fileID: 3647602842604387500, guid: ca1b5006d5c131e4cbb4c233fc6c6d11, type: 3}
   numCoins: 5
   coinBlockPrefab: {fileID: 8063850773831616555, guid: 001f3ea631b23644da8a8d949f0cee62, type: 3}
+  defaultBlock: {fileID: 21300000, guid: 268b73c2bf5f4764bbc925365b358b8d, type: 3}
+  hitBlock: {fileID: 21300000, guid: 268b73c2bf5f4764bbc925365b358b8d, type: 3}
+  hitEmptyBlock: {fileID: 21300000, guid: ff4958dd39dd0364ab0e93390c47c8f8, type: 3}
   emptyBlock: {fileID: 21300000, guid: ff4958dd39dd0364ab0e93390c47c8f8, type: 3}
   itemPrefab: {fileID: 0}
-  floatPointsPrefab: {fileID: 6143019496171030155, guid: c33175d406fcb224e91fc3b4bfe79def, type: 3}
   onBlockLayers:
     serializedVersion: 2
     m_Bits: 2304

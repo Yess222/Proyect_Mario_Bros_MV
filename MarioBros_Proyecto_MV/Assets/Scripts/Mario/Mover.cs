@@ -35,8 +35,12 @@ public class Mover : MonoBehaviour
     bool isAutoWalk;
     public float autoWalkSpeed = 5f;
     
-    //CameraFollow cameraFollow;
+    
     Mario mario;
+
+    public bool moveConnectionCompleted = true;
+
+    //CameraFollow cameraFollow;
     SpriteRenderer spriteRenderer;
     
 
@@ -47,11 +51,12 @@ public class Mover : MonoBehaviour
         animaciones = GetComponent<Animaciones>();
         mario = GetComponent<Mario>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        defaultGravity = rb2D.gravityScale;
     }
 
     void Start()
     {
-        defaultGravity = rb2D.gravityScale;
+        //defaultGravity = rb2D.gravityScale;
         //cameraFollow = Camera.main.GetComponent<CameraFollow>();
     }
 
@@ -149,69 +154,73 @@ public class Mover : MonoBehaviour
         }
         else
         {
-            isSkidding = false;
-            currentVelocity = rb2D.velocity.x;
-
-            if (colisiones.CheckCollision((int)currentDirection))
+            if (!rb2D.isKinematic)
             {
-                currentVelocity = 0;
-            }
-            else
-            {
-                if (currentDirection > 0)
-                {
-                    if (currentVelocity < 0)
-                    {
-                        currentVelocity += (acceleration + friction) * Time.deltaTime;
-                        isSkidding = true;
-                    }
-                    else if (currentVelocity < maxVelocity)
-                    {
-                        currentVelocity += acceleration * Time.deltaTime;
-                        transform.localScale = new Vector2(1, 1);
-                    }
-                }
-                else if (currentDirection < 0)
-                {
-                    if (currentVelocity > 0)
-                    {
-                        currentVelocity -= (acceleration + friction) * Time.deltaTime;
-                        isSkidding = true;
+                isSkidding = false;
+                currentVelocity = rb2D.velocity.x;
 
-                    }
-                    else if (currentVelocity > -maxVelocity)
-                    {
-                        currentVelocity -= acceleration * Time.deltaTime;
-                        transform.localScale = new Vector2(-1, 1);
-                    }
+                if (colisiones.CheckCollision((int)currentDirection))
+                {
+                    currentVelocity = 0;
                 }
                 else
                 {
-                    if (currentVelocity > 1f)
+                    if (currentDirection > 0)
                     {
-                        currentVelocity -= friction * Time.deltaTime;
-
+                        if (currentVelocity < 0)
+                        {
+                            currentVelocity += (acceleration + friction) * Time.deltaTime;
+                            isSkidding = true;
+                        }
+                        else if (currentVelocity < maxVelocity)
+                        {
+                            currentVelocity += acceleration * Time.deltaTime;
+                            transform.localScale = new Vector2(1, 1);
+                        }
                     }
-                    else if (currentVelocity < -1f)
+                    else if (currentDirection < 0)
                     {
-                        currentVelocity += friction * Time.deltaTime;
+                        if (currentVelocity > 0)
+                        {
+                            currentVelocity -= (acceleration + friction) * Time.deltaTime;
+                            isSkidding = true;
+
+                        }
+                        else if (currentVelocity > -maxVelocity)
+                        {
+                            currentVelocity -= acceleration * Time.deltaTime;
+                            transform.localScale = new Vector2(-1, 1);
+                        }
                     }
                     else
                     {
-                        currentVelocity = 0;
+                        if (currentVelocity > 1f)
+                        {
+                            currentVelocity -= friction * Time.deltaTime;
+
+                        }
+                        else if (currentVelocity < -1f)
+                        {
+                            currentVelocity += friction * Time.deltaTime;
+                        }
+                        else
+                        {
+                            currentVelocity = 0;
+                        }
                     }
                 }
-            }
-            if (mario.isCrouched)
-            {
-                currentVelocity = 0;
-            }
+                if (mario.isCrouched)
+                {
+                    currentVelocity = 0;
+                }
 
-            Vector2 velocity = new Vector2(currentVelocity, rb2D.velocity.y);
-            rb2D.velocity = velocity;
+                Vector2 velocity = new Vector2(currentVelocity, rb2D.velocity.y);
+                rb2D.velocity = velocity;
 
-            animaciones.Velocity(currentVelocity);
-            animaciones.Skid(isSkidding);
+                animaciones.Velocity(currentVelocity);
+                animaciones.Skid(isSkidding);
+            }
+            
         }
     }
 
@@ -294,4 +303,82 @@ public class Mover : MonoBehaviour
         isAutoWalk = true;
         currentVelocity = autoWalkSpeed;
     }
+
+    public void AutoMoveConnection(ConnectDirection direction)
+    {
+        moveConnectionCompleted = false;
+        inputMoveEnabled = false;
+        rb2D.isKinematic = true;
+        rb2D.velocity = Vector2.zero;
+        spriteRenderer.sortingOrder = -100;
+
+        switch(direction)
+        {
+            case ConnectDirection.Up:
+                //moveConnectionCompleted = true;
+                StartCoroutine(AutoMoveConnectionUp());
+                break;
+            case ConnectDirection.Down:
+                //moveConnectionCompleted = true;
+                StartCoroutine(AutoMoveConnectionDown());
+                break;
+            case ConnectDirection.Left:
+                moveConnectionCompleted = true;
+                break;
+            case ConnectDirection.Right:
+                //moveConnectionCompleted = true;
+                StartCoroutine(AutoMoveConnectionRight());
+                break;
+
+        }
+
+
+
+    }
+
+    public void ResetMove()
+    {
+        rb2D.isKinematic = false;
+        inputMoveEnabled = true;
+        spriteRenderer.sortingOrder = 20;
+    }
+
+    IEnumerator AutoMoveConnectionDown()
+    {
+        float targetDown = transform.position.y - spriteRenderer.bounds.size.y;
+        while(transform.position.y > targetDown)
+        {
+            transform.position += Vector3.down * Time.deltaTime;
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+        moveConnectionCompleted = true;
+    }
+
+    IEnumerator AutoMoveConnectionUp()
+    {
+        float targetUp = transform.position.y + spriteRenderer.bounds.size.y;
+        while (transform.position.y < targetUp)
+        {
+            transform.position += Vector3.up * Time.deltaTime;
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+        moveConnectionCompleted = true;
+    }
+
+    IEnumerator AutoMoveConnectionRight()
+    {
+        float targetRight = transform.position.x + spriteRenderer.bounds.size.x*2;
+        animaciones.Velocity(1);
+        while (transform.position.x < targetRight)
+        {
+            transform.position += Vector3.right * Time.deltaTime;
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+        animaciones.Velocity(0);
+        moveConnectionCompleted = true;
+    }
+
+
+
+
 }

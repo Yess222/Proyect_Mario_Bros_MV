@@ -49,6 +49,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2210605672531474973, guid: 9ea9ef06b6f90dd46930332d4b0c86f7, type: 3}
+      propertyPath: hitBlock
+      value: 
+      objectReference: {fileID: 21300000, guid: ff4958dd39dd0364ab0e93390c47c8f8, type: 3}
+    - target: {fileID: 2210605672531474973, guid: 9ea9ef06b6f90dd46930332d4b0c86f7, type: 3}
       propertyPath: numCoins
       value: 10
       objectReference: {fileID: 0}
@@ -59,6 +63,14 @@ PrefabInstance:
     - target: {fileID: 6939400295075471010, guid: 9ea9ef06b6f90dd46930332d4b0c86f7, type: 3}
       propertyPath: m_Name
       value: QuestionBlock Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 8133188311149629179, guid: 9ea9ef06b6f90dd46930332d4b0c86f7, type: 3}
+      propertyPath: m_BodyType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8133188311149629179, guid: 9ea9ef06b6f90dd46930332d4b0c86f7, type: 3}
+      propertyPath: m_GravityScale
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -93,3 +105,4 @@ MonoBehaviour:
   - {fileID: -148231439, guid: 731cac777d600c34fa93ad8dbaeb95d1, type: 3}
   frameTime: 0.1
   stop: 0
+  loop: 1
