@@ -26,19 +26,29 @@ public class Mario : MonoBehaviour
     float hurtTimer;
 
     public bool isCrouched;
-
-
     //public GameObject headBox;
     //public bool levelFinished;
     bool isDead;
 
+    public static Mario Instance;
+
     // public  HUB hub;
     private void Awake()
     {
-        mover = GetComponent<Mover>();
-        colisiones = GetComponent<Colisiones>();
-        animaciones = GetComponent<Animaciones>();
-        rb2D = GetComponent<Rigidbody2D>();
+        if(Instance == null)
+        {
+            Instance = this;
+            mover = GetComponent<Mover>();
+            colisiones = GetComponent<Colisiones>();
+            animaciones = GetComponent<Animaciones>();
+            rb2D = GetComponent<Rigidbody2D>();
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
     }
     private void Update()
     {
@@ -161,6 +171,14 @@ public class Mario : MonoBehaviour
         }
 
     }
+    public void Respawn(Vector2 pos)
+    {
+        isDead = false;
+        colisiones.Respawn();
+        mover.Respawn();
+        animaciones.Reset();
+        transform.position = pos;
+    }
     void ChangeState(int newState)
     {
         currentState = (State)newState;
@@ -191,7 +209,6 @@ public class Mario : MonoBehaviour
                     animaciones.PowerUp();
                     Time.timeScale = 0;
                     rb2D.velocity = Vector2.zero;
-
                 }
                 break;
             case ItemType.Coin:

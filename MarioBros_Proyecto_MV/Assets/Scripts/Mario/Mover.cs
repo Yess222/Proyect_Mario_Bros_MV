@@ -31,21 +31,28 @@ public class Mover : MonoBehaviour
     bool isClimbingFlagPole = false;
     public float climbPoleSpeed = 5;
     public bool isFlagDown;
+
     bool isAutoWalk;
     public float autoWalkSpeed = 5f;
+    
+    //CameraFollow cameraFollow;
     Mario mario;
+    SpriteRenderer spriteRenderer;
+    
+
     private void Awake()
     {
         rb2D = GetComponent<Rigidbody2D>();
         colisiones = GetComponent<Colisiones>();
         animaciones = GetComponent<Animaciones>();
         mario = GetComponent<Mario>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Start()
     {
         defaultGravity = rb2D.gravityScale;
-
+        //cameraFollow = Camera.main.GetComponent<CameraFollow>();
     }
 
     void Update()
@@ -64,7 +71,6 @@ public class Mover : MonoBehaviour
             headBox.SetActive(false);
             if (isJumping)
             {
-
                 if (rb2D.velocity.y > 0f)
                 {
                     headBox.SetActive(true);
@@ -92,7 +98,6 @@ public class Mover : MonoBehaviour
                 }
             }
             currentDirection = Direction.None;
-
             if (inputMoveEnabled)
             {
                 if (Input.GetKeyDown(KeyCode.Space))
@@ -111,6 +116,20 @@ public class Mover : MonoBehaviour
                     currentDirection = Direction.Right;
                 }
             }
+        }
+        bool limitRight;
+        bool limitLeft;
+        
+        if(LevelManager.Instance.cameraFollow != null)
+        {
+            float posX = LevelManager.Instance.cameraFollow.PositionInCamera(transform.position.x, spriteRenderer.bounds.extents.x,
+            out limitRight, out limitLeft);
+            if (limitRight && (currentDirection == Direction.Right || currentDirection == Direction.None)) {
+                rb2D.velocity = new Vector2(0, rb2D.velocity.y);
+            }else if (limitLeft && (currentDirection == Direction.Left || currentDirection == Direction.None)){
+                rb2D.velocity = new Vector2(0, rb2D.velocity.y);
+            }
+            transform.position = new Vector2(posX, transform.position.y);
         }
     }
     public void FixedUpdate()
@@ -228,6 +247,13 @@ public class Mover : MonoBehaviour
         rb2D.velocity = Vector2.zero;
         rb2D.gravityScale = 1;
         rb2D.AddForce(Vector2.up * 5f, ForceMode2D.Impulse);
+    }
+    public void Respawn()
+    {
+        inputMoveEnabled = true;
+        rb2D.velocity = Vector2.zero;
+        rb2D.gravityScale = defaultGravity;
+        transform.localScale = Vector2.one;
     }
     public void BounceUp()
     {

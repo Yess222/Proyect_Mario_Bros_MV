@@ -43,10 +43,7 @@ public class DestroyOutCamera : MonoBehaviour
                         Destroy(parent);
                     }
                 }
-
-
             }
         }
-
     }
 }

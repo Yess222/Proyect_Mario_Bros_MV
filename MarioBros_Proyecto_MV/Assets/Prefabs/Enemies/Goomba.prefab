@@ -187,6 +187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: -1
   flipSprite: 1
+  partner: {fileID: 0}
 --- !u!114 &7412466829160587568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,3 +214,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f26d2786ad20b5459f5f6a50b35fa66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onlyBack: 0
+  minDistance: 15
+  parent: {fileID: 0}
