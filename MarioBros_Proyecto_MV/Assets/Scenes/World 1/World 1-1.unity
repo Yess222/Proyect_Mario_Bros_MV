@@ -7097,7 +7097,7 @@ PrefabInstance:
     - target: {fileID: 565027001177785351, guid: 7c47341ecc464174ab78c1fcbe328a6f, type: 3}
       propertyPath: itemPrefab
       value: 
-      objectReference: {fileID: 5064641449986988729, guid: 0ff662bcced1e0d4f90f23a1799d976d, type: 3}
+      objectReference: {fileID: 1176800772869556484, guid: 50ed24cb4291df745a7010d85394cdf3, type: 3}
     - target: {fileID: 565027001177785351, guid: 7c47341ecc464174ab78c1fcbe328a6f, type: 3}
       propertyPath: isBreakable
       value: 0
@@ -8861,6 +8861,10 @@ PrefabInstance:
       propertyPath: rb2D
       value: 
       objectReference: {fileID: 1669293581}
+    - target: {fileID: 3572500969054660149, guid: a728106fb9b4e8849a3717cfdcc87c29, type: 3}
+      propertyPath: isJumping
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8894040225352414298, guid: a728106fb9b4e8849a3717cfdcc87c29, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10.99
