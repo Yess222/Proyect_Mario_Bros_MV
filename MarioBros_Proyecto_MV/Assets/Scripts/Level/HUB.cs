@@ -8,7 +8,9 @@ public class HUB : MonoBehaviour
     public TextMeshProUGUI score;
     public TextMeshProUGUI numCoins;
     public TextMeshProUGUI time;
-    int coins;
+    public TextMeshProUGUI worldLevel;
+
+    //int coins;
 
     // Start is called before the first frame update
     // void Start()
@@ -38,5 +40,10 @@ public class HUB : MonoBehaviour
         int timeLeftInt = Mathf.RoundToInt(timeLeft);
         time.text = timeLeftInt.ToString("D3");
 
+    }
+
+    public void UpdateWorld(int world, int level)
+    {
+        worldLevel.text = world + "-" + level;
     }
 }

@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class CastleLevel : MonoBehaviour
 {
-    public string nextScene;
+    //public string nextScene;
+    //public int nextWorld;
+    //public int nextLevel;
+
+
     bool marioInCastle;
 
 
@@ -13,7 +17,11 @@ public class CastleLevel : MonoBehaviour
     {
         if(marioInCastle && LevelManager.Instance.countPoints)
         {
-            GameManager.Instance.GoToLevel(nextScene);
+            //GameManager.Instance.GoToLevel(nextScene);
+            //GameManager.Instance.GoToLevel(nextWorld, nextLevel);
+            GameManager.Instance.NextLevel();
+            marioInCastle = false;
+      
         }
     }
 

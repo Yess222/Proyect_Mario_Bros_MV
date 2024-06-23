@@ -141,6 +141,22 @@ public class Colisiones : MonoBehaviour
             }
         }
     }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Platform") && isGrounded)
+        {
+            transform.parent = collision.transform;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Platform"))
+        {
+            transform.parent = null;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
+
     public void StompBlock()
     {
         Collider2D collider2D = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);

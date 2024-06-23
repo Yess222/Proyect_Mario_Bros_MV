@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -25}
+  m_AnchoredPosition: {x: 0, y: -180}
   m_SizeDelta: {x: 0, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6302307028404266654
@@ -216,7 +216,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 57.500027, y: 21.616}
+  m_AnchoredPosition: {x: 43.8, y: -102.5}
   m_SizeDelta: {x: 115, y: 43.232}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &727689742225747542
@@ -351,7 +351,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -33.7, y: 29.1}
+  m_AnchoredPosition: {x: -24.4, y: -100.88}
   m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5026993297924261484
@@ -445,7 +445,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -25}
+  m_AnchoredPosition: {x: -55.2, y: -176.1}
   m_SizeDelta: {x: 0, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1828482352269723358
@@ -809,7 +809,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0.5
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -863,6 +863,7 @@ MonoBehaviour:
   score: {fileID: 6025982617369130515}
   numCoins: {fileID: 4774968681264469786}
   time: {fileID: 5166497777839736451}
+  worldLevel: {fileID: 8502445755534474748}
 --- !u!1 &6290739563184254391
 GameObject:
   m_ObjectHideFlags: 0
@@ -909,9 +910,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a81c26818860d64f8f30d3d0b6d8f72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  worlds:
+  - id: 1
+    levels:
+    - id: 1
+      sceneName: World 1-1
+    - id: 2
+      sceneName: World 1-1_Duplicado
   hud: {fileID: 846853857652362840}
   mario: {fileID: 0}
   lives: 0
+  isGameOver: 0
   isLevelCheckPoint: 0
 --- !u!1 &6918810277252777839
 GameObject:
@@ -1015,7 +1024,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 1024
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -1129,7 +1138,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 25}
+  m_AnchoredPosition: {x: 0, y: -115}
   m_SizeDelta: {x: 0, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2951136642782210580
@@ -1264,8 +1273,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -369, y: -50}
-  m_SizeDelta: {x: 230, y: 100}
+  m_AnchoredPosition: {x: -275, y: -185.352}
+  m_SizeDelta: {x: 230, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &346528090099449197
 CanvasRenderer:
@@ -1309,7 +1318,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 25}
+  m_AnchoredPosition: {x: -43.4, y: -111.2}
   m_SizeDelta: {x: 0, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5440346936709860572
