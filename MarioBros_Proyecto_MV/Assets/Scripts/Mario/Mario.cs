@@ -61,7 +61,10 @@ public class Mario : MonoBehaviour
             }
             else
             {
-                stompBox.SetActive(false);
+                if(transform.parent == null)
+                {
+                    stompBox.SetActive(false);
+                }
             }
 
             if (Input.GetKey(KeyCode.DownArrow))
@@ -120,10 +123,10 @@ public class Mario : MonoBehaviour
         //   Time.timeScale = 0;
         //    animaciones.PowerUp();
         //}
-        //if(Input.GetKeyDown(KeyCode.H))
-        //{
-        //    Hit();
-        //}
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            Hit();
+        }
     }
     public void Hit()
     {
