@@ -32,6 +32,7 @@ public class CastleLevel : MonoBehaviour
         {
             mario.transform.position = new Vector3(1000, 1000, 1000);
             marioInCastle = true;
+            LevelManager.Instance.MarioInCastle();
         }
     }
 }

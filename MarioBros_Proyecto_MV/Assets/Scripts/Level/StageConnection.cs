@@ -15,6 +15,8 @@ public class StageConnection : MonoBehaviour
 
     public Stage stage;
 
+    public bool auto;
+
     private void Update()
     {
         if (Input.GetKey(KeyCode.DownArrow) && exitDirection == ConnectDirection.Down)
@@ -50,6 +52,10 @@ public class StageConnection : MonoBehaviour
     {
         if(collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
+            if (!connectionStarted && auto) 
+            {
+                StartCoroutine(StartConnection());
+            }
             stayConnection = true;
         }
     }

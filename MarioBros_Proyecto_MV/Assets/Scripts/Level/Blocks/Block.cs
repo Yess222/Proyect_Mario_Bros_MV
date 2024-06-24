@@ -56,7 +56,15 @@ public class Block : MonoBehaviour
                 Item item = c.GetComponent<Item>();
                 if (item != null)
                 {
-                    item.HitBelowBlock();
+                    if (item.type == ItemType.Coin)
+                    {
+                        Instantiate(coinBlockPrefab, transform.position, Quaternion.identity);
+                        Destroy(item.gameObject);
+                    }
+                    else
+                    {
+                        item.HitBelowBlock();
+                    }
                 }
             }
 
@@ -121,6 +129,7 @@ public class Block : MonoBehaviour
         {
             if (marioBig)
             {
+                OnTheBlock();
                 Break();
             }
             else
@@ -273,23 +282,26 @@ public class Block : MonoBehaviour
         GameObject brickPiece;
         /* Arriba a la derecha */
         brickPiece = Instantiate(brickPiecePrefab, transform.position,
-            Quaternion.Euler(new Vector3(0, 0, 0)));
-        brickPiece.GetComponent<Rigidbody2D>().velocity = new Vector2(3f, 8f);
+            Quaternion.identity);
+        brickPiece.GetComponent<Rigidbody2D>().velocity = new Vector2(3f, 12f);
 
         /* Arriba a la izquierda */
         brickPiece = Instantiate(brickPiecePrefab, transform.position,
-            Quaternion.Euler(new Vector3(0, 0, 90)));
-        brickPiece.GetComponent<Rigidbody2D>().velocity = new Vector2(-3f, 8f);
+            Quaternion.identity);
+        brickPiece.transform.localScale = new Vector3(-1f, 1f, 1f);
+        brickPiece.GetComponent<Rigidbody2D>().velocity = new Vector2(-3f, 12f);
 
         /* Abajo a la derecha */
         brickPiece = Instantiate(brickPiecePrefab, transform.position,
-            Quaternion.Euler(new Vector3(0, 0, -90)));
-        brickPiece.GetComponent<Rigidbody2D>().velocity = new Vector2(3f, 0f);
+            Quaternion.identity);
+        brickPiece.transform.localScale = new Vector3(1f, -1f, 1f);
+        brickPiece.GetComponent<Rigidbody2D>().velocity = new Vector2(3f, 8f);
 
         /* Abajo a la izquierda */
         brickPiece = Instantiate(brickPiecePrefab, transform.position,
-            Quaternion.Euler(new Vector3(0, 0, 180)));
-        brickPiece.GetComponent<Rigidbody2D>().velocity = new Vector2(-3f, 0f);
+            Quaternion.identity);
+        brickPiece.transform.localScale = new Vector3(-1f, -1f, 1f);
+        brickPiece.GetComponent<Rigidbody2D>().velocity = new Vector2(-3f, 8f);
 
         Destroy(gameObject);
     }

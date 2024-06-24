@@ -16,11 +16,16 @@ public class Enemy : MonoBehaviour
         autoMovement = GetComponent<AutoMovement>();
         rb2d = GetComponent<Rigidbody2D>();   
     }
+
+    protected virtual void Start()
+    {
+
+    }
     protected virtual void Update()
     {
 
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.layer == gameObject.layer)
         {

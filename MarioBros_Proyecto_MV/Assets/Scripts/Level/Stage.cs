@@ -27,6 +27,8 @@ public class Stage : MonoBehaviour
         Camera.main.backgroundColor = backgroundColor;
         Mario.Instance.transform.position = enterPoint.position;
         cam.transform.position = new Vector3(transform.position.x, transform.position.y, cam.transform.position.z);
+        cam.lastPos = transform.position.x;
+
         switch(enterDirection)
         {
             case ConnectDirection.Down:

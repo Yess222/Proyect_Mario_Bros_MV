@@ -52,15 +52,16 @@ public class Colisiones : MonoBehaviour
     }
     public bool CheckCollision(int direction)
     {
+        Vector2 size = new Vector2(0.1f, col2D.bounds.size.y * 0.8f);
         return Physics2D.OverlapBox(col2D.bounds.center + Vector3.right * direction * col2D.bounds.extents.x,
-        col2D.bounds.size * 0.5f, 0f, sideColisions);
+        col2D.bounds.size, 0, sideColisions);
     }
     private void OnDrawGizmos()
     {
         if (col2D != null)
         {
             Gizmos.DrawWireCube(col2D.bounds.center + Vector3.right * transform.localScale.x * col2D.bounds.extents.x,
-            col2D.bounds.size * 0.5f);
+            col2D.bounds.size * 0.20f);
         }
     }
 

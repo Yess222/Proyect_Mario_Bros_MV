@@ -11,6 +11,11 @@ public class Koopa : Enemy
    public float rollingSpeed;
    public bool isRolling;
 
+   protected override void Start()
+    {
+        base.Start();
+    }
+
    protected override void  Update()
    {
       base.Update();
@@ -89,7 +94,7 @@ public class Koopa : Enemy
       animator.SetBool("Hidden", isHidden);
       stoppedTimer = 0;
    }
-   private void OnCollisionEnter2D (Collision2D collision)
+   protected override void OnCollisionEnter2D (Collision2D collision)
     {
         if (isRolling)
         {
@@ -97,6 +102,10 @@ public class Koopa : Enemy
             {
                 collision.gameObject.GetComponent<Enemy>().HitRollingShell();
             }
+        }
+        else if(!isHidden)
+        {
+            base.OnCollisionEnter2D(collision);
         }
     }
 }

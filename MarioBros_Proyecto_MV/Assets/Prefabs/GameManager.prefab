@@ -916,12 +916,14 @@ MonoBehaviour:
     - id: 1
       sceneName: World 1-1
     - id: 2
-      sceneName: World 1-1_Duplicado
+      sceneName: World 1-2
+  currentWorld: 0
+  currentLevel: 0
   hud: {fileID: 846853857652362840}
   mario: {fileID: 0}
   lives: 0
   isGameOver: 0
-  isLevelCheckPoint: 0
+  currentPoint: 0
 --- !u!1 &6918810277252777839
 GameObject:
   m_ObjectHideFlags: 0

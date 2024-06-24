@@ -64,6 +64,13 @@ public class Mover : MonoBehaviour
     {
         bool grounded = colisiones.Grounded();
         animaciones.Grounded(grounded);
+
+        if (grounded)
+        {
+            animaciones.Jumping(isJumping);
+        }
+
+
         if (LevelManager.Instance.levelFinished)
         {
             if (grounded && isClimbingFlagPole)
@@ -94,12 +101,14 @@ public class Mover : MonoBehaviour
                 else
                 {
                     rb2D.gravityScale = defaultGravity;
-                    if (grounded)
-                    {
-                        isJumping = false;
-                        jumpTimer = 0;
-                        animaciones.Jumping(false);
-                    }
+                    isJumping = false;
+                    jumpTimer = 0;
+                    //if (grounded)
+                    //{
+                    //    isJumping = false;
+                    //    jumpTimer = 0;
+                    //    animaciones.Jumping(false);
+                    //}
                 }
             }
             currentDirection = Direction.None;
@@ -143,8 +152,8 @@ public class Mover : MonoBehaviour
     }
     public void FixedUpdate()
     {
-        if (LevelManager.Instance.levelFinished)
-        {
+        //if (LevelManager.Instance.levelFinished)
+        //{
             if (isClimbingFlagPole)
             {
                 rb2D.MovePosition(rb2D.position + Vector2.down * climbPoleSpeed * Time.fixedDeltaTime);
@@ -155,11 +164,11 @@ public class Mover : MonoBehaviour
                 rb2D.velocity = velocity;
                 animaciones.Velocity(Mathf.Abs(currentVelocity));
             }
-        }
-        else
+        //}
+        else if(!rb2D.isKinematic && !LevelManager.Instance.levelFinished)
         {
-            if (!rb2D.isKinematic)
-            {
+            //if (!rb2D.isKinematic)
+            //{
                 isSkidding = false;
                 currentVelocity = rb2D.velocity.x;
 
@@ -223,7 +232,7 @@ public class Mover : MonoBehaviour
 
                 animaciones.Velocity(currentVelocity);
                 animaciones.Skid(isSkidding);
-            }
+           // }
             
         }
     }
@@ -254,15 +263,20 @@ public class Mover : MonoBehaviour
         Vector2 velocity = new Vector2(1f, 0f);
         rb2D.velocity = velocity;
     }
-    public void Dead()
+    public void Dead(bool bounce)
     {
         inputMoveEnabled = false;
-        rb2D.velocity = Vector2.zero;
-        rb2D.gravityScale = 1;
-        rb2D.AddForce(Vector2.up * 5f, ForceMode2D.Impulse);
+        if (bounce)
+        {
+            rb2D.velocity = Vector2.zero;
+            rb2D.gravityScale = 1;
+            rb2D.AddForce(Vector2.up * 5f, ForceMode2D.Impulse);
+        }
+        
     }
     public void Respawn()
     {
+        isAutoWalk = false;
         inputMoveEnabled = true;
         rb2D.velocity = Vector2.zero;
         rb2D.gravityScale = defaultGravity;
@@ -275,41 +289,58 @@ public class Mover : MonoBehaviour
         rb2D.AddForce(Vector2.up * 10f, ForceMode2D.Impulse);
     }
 
+    public void AutoWalk()
+    {
+        rb2D.isKinematic = false;
+        inputMoveEnabled = false;
+        isAutoWalk = true;
+        currentVelocity = autoWalkSpeed;
+    }
+
+
     public void DownFlagPole()
     {
-        inputMoveEnabled = false;
-        rb2D.isKinematic = true;
-        rb2D.velocity = new Vector2(0, 0f);
-        isClimbingFlagPole = true;
-        isJumping = false;
-        animaciones.Jumping(false);
-        animaciones.Climb(true);
-        transform.position = new Vector2(transform.position.x + 0.1f, transform.position.y);
+        if (!isClimbingFlagPole)
+        {
+            inputMoveEnabled = false;
+            rb2D.isKinematic = true;
+            rb2D.velocity = new Vector2(0, 0f);
+            isClimbingFlagPole = true;
+            isJumping = false;
+            animaciones.Jumping(false);
+            animaciones.Climb(true);
+            transform.position = new Vector2(transform.position.x + 0.1f, transform.position.y);
+        }
     }
     IEnumerator JumpOffPole()
     {
+        isAutoWalk = false;
         isClimbingFlagPole = false;
         rb2D.velocity = Vector2.zero;
         animaciones.Pause();
         yield return new WaitForSeconds(0.25f);
+
         while (!isFlagDown)
         {
             yield return null;
         }
+
         transform.position = new Vector2(transform.position.x + 0.5f, transform.position.y);
         GetComponent<SpriteRenderer>().flipX = true;
         yield return new WaitForSeconds(0.25f);
 
         animaciones.Climb(false);
-        rb2D.isKinematic = false;
+        //rb2D.isKinematic = false;
         animaciones.Continue();
         GetComponent<SpriteRenderer>().flipX = false;
-        isAutoWalk = true;
-        currentVelocity = autoWalkSpeed;
+        //isAutoWalk = true;
+        //currentVelocity = autoWalkSpeed;
+        AutoWalk();
     }
 
     public void AutoMoveConnection(ConnectDirection direction)
     {
+        isAutoWalk = false;
         moveConnectionCompleted = false;
         inputMoveEnabled = false;
         rb2D.isKinematic = true;

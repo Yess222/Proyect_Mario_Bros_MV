@@ -20,7 +20,8 @@ public class GameManager : MonoBehaviour
     bool isRespawning;
     public bool isGameOver;
 
-    public bool isLevelCheckPoint;
+    //public bool isLevelCheckPoint;
+    public int currentPoint;
     public static GameManager Instance;
     private void Awake()
     {
@@ -54,7 +55,8 @@ public class GameManager : MonoBehaviour
     }
     public void OutOfTime()
     {
-        mario.Dead();
+        //mario.Dead();
+        Mario.Instance.Dead(true);
     }
     public void LoseLife()
     {
@@ -83,7 +85,8 @@ public class GameManager : MonoBehaviour
         coins = 0;
         isGameOver = false;
         ScoreManager.Instance.NewGame();
-        isLevelCheckPoint = false;
+        //isLevelCheckPoint = false;
+        currentPoint = 0;
     }
     void GameOver()
     {
@@ -110,34 +113,40 @@ public class GameManager : MonoBehaviour
         }
         hud.UpdateCoins(coins);
 
-        if (isLevelCheckPoint)
-        {
-            Mario.Instance.Respawn(LevelManager.Instance.checkPoint.position);
-        }
-        else
-        {
-            Mario.Instance.Respawn(LevelManager.Instance.startPoint.position);
-        }
+        Vector3 position = LevelManager.Instance.checkPoints[currentPoint].startPointPlayer.position;
+        Mario.Instance.Respawn(position);
+        LevelManager.Instance.StartLevel(currentPoint);
+        //if (isLevelCheckPoint)
+        //{
+        //    Mario.Instance.Respawn(LevelManager.Instance.checkPoint.position);
+        //}
+        //else
+        //{
+        //    Mario.Instance.Respawn(LevelManager.Instance.startPoint.position);
+        //}
         LevelManager.Instance.cameraFollow.StartFollow(Mario.Instance.transform);
     }
     public void KillZone()
     {
         if (!isRespawning)
         {
-            AudioManager.Instance.PlayDie();
-            LoseLife();
+            //AudioManager.Instance.PlayDie();
+            //LoseLife();
+            Mario.Instance.Dead(false);
         }
     }
 
     public void GoToLevel(string sceneName)
     {
-        isLevelCheckPoint = false;
+        //isLevelCheckPoint = false;
+        currentPoint = 0;
         SceneManager.LoadScene(sceneName);
     }
 
     public void GoToLevel(int world, int level)
     {
-        isLevelCheckPoint = false;
+        //isLevelCheckPoint = false;
+        currentPoint = 0;
         currentLevel = level;
         currentWorld = world;
         hud.UpdateWorld(world, level);
@@ -196,7 +205,8 @@ public class GameManager : MonoBehaviour
         }
         currentWorld = worldIndex + 1;
         currentLevel = levelIndex + 1;
-        isLevelCheckPoint = false;
+        //isLevelCheckPoint = false;
+        currentPoint = 0;
         hud.UpdateWorld(currentWorld, currentLevel);
         LoadTransition() ;
     }
