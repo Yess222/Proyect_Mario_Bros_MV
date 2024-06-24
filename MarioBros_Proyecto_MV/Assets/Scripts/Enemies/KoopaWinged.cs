@@ -35,11 +35,36 @@ public class KoopaWinged : Koopa
         {
             AudioManager.Instance.PlayStomp();
             LoseWings();
+            NoDamageTemp();
         }
         else
         {
             base.Stomped(player);  
         }
+    }
+    public override void HitFireball()
+    {
+        if (isFly)
+        {
+            LoseWings();
+        }
+        base.HitFireball();
+    }
+    public override void HitRollingShell()
+    {
+        if(isFly)
+        {
+            LoseWings();
+        }
+        base.HitRollingShell();
+    }
+    public override void HitStarman()
+    {
+        if (isFly)
+        {
+            LoseWings();
+        }
+        base.HitStarman();
     }
 
     protected override void Update()

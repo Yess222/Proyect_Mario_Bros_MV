@@ -11,9 +11,11 @@ public class Koopa : Enemy
    public float rollingSpeed;
    public bool isRolling;
 
+    bool isAvoidFall;
    protected override void Start()
     {
         base.Start();
+        isAvoidFall = autoMovement.avoidFall;
     }
 
    protected override void  Update()
@@ -62,15 +64,21 @@ public class Koopa : Enemy
       if(isRolling)
       {
          destroyOutCamera.onlyBack = false;
+         autoMovement.avoidFall = false;
       }
       else
       {
          destroyOutCamera.onlyBack = true;
+         autoMovement.avoidFall = isAvoidFall;
       }
-      gameObject.layer = LayerMask.NameToLayer("OnlyGround");
-      Invoke("ResetLayer", 0.1f);
-      stoppedTimer = 0;
+        NoDamageTemp();
+        stoppedTimer = 0;
    }
+    protected void NoDamageTemp()
+    {
+        gameObject.layer = LayerMask.NameToLayer("OnlyGround");
+        Invoke("ResetLayer", 0.1f);
+    }
     public override void HitRollingShell()
     {
         if (!isRolling)

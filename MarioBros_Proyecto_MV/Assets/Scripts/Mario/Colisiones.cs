@@ -80,6 +80,20 @@ public class Colisiones : MonoBehaviour
             }
 
         }
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Lava"))
+        {
+            if(!mario.isInvincible)
+            {
+                mario.Hit();
+            }
+        }
+        if (collision.gameObject.layer == LayerMask.NameToLayer("DamagePlayer"))
+        {
+            if (!mario.isInvincible)
+            {
+                mario.Hit();
+            }
+        }
     }
     public void Dead()
     {

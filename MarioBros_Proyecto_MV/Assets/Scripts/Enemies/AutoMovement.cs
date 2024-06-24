@@ -82,9 +82,11 @@ public class AutoMovement : MonoBehaviour
 
             if (useWaypoints)
             {
-                Vector3 direction = transform.position - waypoints[targetWaypoint].position;
-                rb2D.velocity = speed * direction.normalized;
-                if(Vector2.Distance(transform.position, waypoints[targetWaypoint].position) < 0.1f)
+                Vector3 direction = waypoints[targetWaypoint].position - transform.position;
+                rb2D.velocity = Mathf.Abs(speed) * direction.normalized;
+
+                float distancetoTarget = Vector2.Distance(transform.position, waypoints[targetWaypoint].position);
+                if(distancetoTarget < 0.1f)
                 {
                     targetWaypoint++;
                     if(targetWaypoint >= waypoints.Length)

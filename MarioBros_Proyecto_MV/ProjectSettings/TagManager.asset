@@ -28,8 +28,8 @@ TagManager:
   - OutCamera
   - KillZone
   - Wall-Invisible
-  - 
-  - 
+  - Lava
+  - DamagePlayer
   - 
   - 
   - 
