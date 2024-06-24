@@ -16,6 +16,7 @@ public class AxeFinal : MonoBehaviour
         {
             if(!isBridgeCollapse)
             {
+                bowser.collapseBridge = true;
                 isBridgeCollapse = true;
                 GetComponent<CircleCollider2D>().enabled = false;
                 Mario.Instance.mover.StopMove();
