@@ -12,6 +12,13 @@ public class Bowser : Enemy
     public float jumpForce = 8f;
     public float minDistanceToMove = 10f;
 
+    bool canShot;
+    public GameObject firePrefab;
+    public Transform shootsPos;
+    public float minShowTime = 1f;
+    public float maxShowTime = 5f;
+    float shotTimer;
+    public float minDistanceToShot = 50f;
     float jumpTimer;
     float direction = -1;
     bool canMove;
@@ -21,7 +28,9 @@ public class Bowser : Enemy
     {
         base.Start();
         jumpTimer = Random.Range(minJumpTime, maxJumpTime);
+        shotTimer = Random.Range(minShowTime, maxShowTime);
         canMove = false;
+        canShot = false;
     }
     protected override void Update()
     {
@@ -51,6 +60,19 @@ public class Bowser : Enemy
                     Jump();
                 }
             }
+            
+            if(!canShot && Mathf.Abs(Mario.Instance.transform.position.x - transform.position.x) <= minDistanceToShot)
+            {
+                canShot = true;
+            }
+            if(canShot)
+            {
+                shotTimer -= Time.deltaTime;
+                if(shotTimer <= 0)
+                {
+                    Shoot();
+                }
+            }
         }
     }
     void Jump()
@@ -59,6 +81,12 @@ public class Bowser : Enemy
         rb2d.AddForce(force, ForceMode2D.Impulse);
         jumpTimer = Random.Range(minJumpTime, maxJumpTime);
 
+    }
+    void Shoot()
+    {
+        GameObject fire = Instantiate(firePrefab, shootsPos.position, Quaternion.identity);
+        fire.GetComponent<BowserFire>().direction = direction;
+        shotTimer  = Random.Range(minShowTime, maxShowTime);
     }
 
     public void FallBridge()
