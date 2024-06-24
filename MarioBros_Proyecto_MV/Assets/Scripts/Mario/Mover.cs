@@ -412,8 +412,12 @@ public class Mover : MonoBehaviour
         animaciones.Velocity(0);
         moveConnectionCompleted = true;
     }
-
-
-
-
+    public void StopMove()
+    {
+        inputMoveEnabled = false;
+        rb2D.isKinematic = true;
+        rb2D.velocity = Vector2.zero;
+        isAutoWalk = false;
+        animaciones.Velocity(0);
+    }
 }

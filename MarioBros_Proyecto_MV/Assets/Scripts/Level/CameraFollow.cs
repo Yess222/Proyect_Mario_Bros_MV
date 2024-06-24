@@ -108,4 +108,8 @@ public class CameraFollow : MonoBehaviour
         limitRight = false;
         return pos;
     }
+    public void UpdateMaxPos(float newMaxLimit)
+    {
+        maxPosX = newMaxLimit - camWidth;
+    }
 }
