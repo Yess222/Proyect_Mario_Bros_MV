@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour
         lives = 3;
         coins = 0;
         hud.UpdateCoins(coins);
+        currentWorld = PlayerPrefs.GetInt("World",1);
+        currentLevel = PlayerPrefs.GetInt("Level",1);
     }
     public void AddCoins()
     {
@@ -91,9 +93,12 @@ public class GameManager : MonoBehaviour
     void GameOver()
     {
         Debug.Log("GameOver");
+        ScoreManager.Instance.GameOver();
         isGameOver = true;
-        currentLevel = 1;
-        currentWorld = 1;
+        // currentLevel = 1;
+        // currentWorld = 1;
+        PlayerPrefs.SetInt("World", currentWorld);
+        PlayerPrefs.SetInt("Level", currentLevel);
         StartCoroutine(Respawn());
     }
     IEnumerator Respawn()
