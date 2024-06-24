@@ -15,8 +15,10 @@ public class LevelManager : MonoBehaviour
     public bool levelFinished;
     public bool levelPaused;
 
-    public Transform startPoint;
-    public Transform checkPoint;
+    //public Transform startPoint;
+    //public Transform checkPoint;
+    public CheckPoint[] checkPoints;
+    public bool hasLevelStart;
 
     public CameraFollow cameraFollow;
 
@@ -43,6 +45,26 @@ public class LevelManager : MonoBehaviour
         GameManager.Instance.LevelLoaded();
     }
 
+    public void StartLevel(int currentPoint)
+    {
+        if(hasLevelStart && currentPoint == 0)
+        {
+            levelPaused = true;
+            Mario.Instance.mover.AutoWalk();
+        }
+        if (checkPoints[currentPoint].stage != null)
+        {
+            checkPoints[currentPoint].stage.EnterStage();
+        }
+
+        Camera.main.backgroundColor = checkPoints[currentPoint].backgroundColor;
+
+    }
+
+    public void MarioInCastle()
+    {
+        cameraFollow.canMove = false;
+    }
     // Update is called once per frame
     void Update()
     {

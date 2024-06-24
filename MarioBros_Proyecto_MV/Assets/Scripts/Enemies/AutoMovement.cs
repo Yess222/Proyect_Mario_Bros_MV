@@ -18,11 +18,21 @@ public class AutoMovement : MonoBehaviour
     bool hasBeenVisible;
     public AutoMovement partner;
 
+    Collider2D col2D;
+    public bool avoidFall;
+    public LayerMask groundLayer;
+    public bool isFall;
+
+    public bool useWaypoints;
+    public Transform[] waypoints;
+    int targetWaypoint = 0;
+
     float timer = 0;
     private void Awake()
     {
         rb2D = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        col2D = GetComponent<Collider2D>();
     }
     private void Start()
     {
@@ -34,8 +44,11 @@ public class AutoMovement : MonoBehaviour
     public void Activate()
     {
         hasBeenVisible = true;
-        rb2D.isKinematic = false;
-        rb2D.velocity = new Vector2(speed, rb2D.velocity.y);
+        if (!useWaypoints)
+        {
+            rb2D.isKinematic = false;
+            rb2D.velocity = new Vector2(speed, rb2D.velocity.y);
+        }        
         movementPaused = false;
         if (partner != null)
         {
@@ -53,19 +66,59 @@ public class AutoMovement : MonoBehaviour
     {
         if (!movementPaused)
         {
-            if (rb2D.velocity.x > -0.1f && rb2D.velocity.x < 0.1f)
+            //if (rb2D.velocity.x > -0.1f && rb2D.velocity.x < 0.1f)
+            //{
+            //    if (timer > 0.05f)
+            //    {
+            //        speed = -speed;
+            //    }
+            //    timer += Time.deltaTime;
+            //}
+            //else
+            //{
+            //    timer = 0;
+            //}
+            //rb2D.velocity = new Vector2(speed, rb2D.velocity.y);
+
+            if (useWaypoints)
             {
-                if (timer > 0.05f)
+                Vector3 direction = transform.position - waypoints[targetWaypoint].position;
+                rb2D.velocity = speed * direction.normalized;
+                if(Vector2.Distance(transform.position, waypoints[targetWaypoint].position) < 0.1f)
                 {
-                    speed = -speed;
+                    targetWaypoint++;
+                    if(targetWaypoint >= waypoints.Length)
+                    {
+                        targetWaypoint = 0;
+                    }
                 }
-                timer += Time.deltaTime;
             }
             else
             {
-                timer = 0;
-            }
-            rb2D.velocity = new Vector2(speed, rb2D.velocity.y);
+                if (isFall)
+                {
+                    if (CheckGrounded())
+                    {
+                        isFall = false;
+                    }
+                }
+                else
+                {
+                    if (CheckSideCollision())
+                    {
+                        ChangeDirection();
+                    }
+                    else if (avoidFall && !CheckGrounded())
+                    {
+                        ChangeDirection();
+                    }
+                    else
+                    {
+                        CheckTimeStopped();
+                    }
+                    rb2D.velocity = new Vector2(speed, rb2D.velocity.y);
+                }
+            }            
 
             if (flipSprite)
             {
@@ -85,8 +138,12 @@ public class AutoMovement : MonoBehaviour
     {
         if (!movementPaused)
         {
-            currentDirection = rb2D.velocity.normalized;
-            lastVelocity = rb2D.velocity;
+            if (!useWaypoints)
+            {
+                currentDirection = rb2D.velocity.normalized;
+                lastVelocity = rb2D.velocity;
+            }
+            
             movementPaused = true;
             rb2D.velocity = new Vector2(0, 0);
         }
@@ -95,8 +152,12 @@ public class AutoMovement : MonoBehaviour
     {
         if (movementPaused)
         {
-            speed = defaultSpeed * currentDirection.x;
-            rb2D.velocity = new Vector2(speed, lastVelocity.y);
+            if (!useWaypoints)
+            {
+                speed = defaultSpeed * currentDirection.x;
+                rb2D.velocity = new Vector2(speed, lastVelocity.y);
+            }
+            
             movementPaused = false;
         }
     }
@@ -104,7 +165,10 @@ public class AutoMovement : MonoBehaviour
     {
         if (movementPaused)
         {
-            rb2D.velocity = newVelocity;
+            if (!useWaypoints)
+            {
+                rb2D.velocity = newVelocity;                
+            }
             movementPaused = false;
         }
     }
@@ -112,5 +176,84 @@ public class AutoMovement : MonoBehaviour
     {
         speed = -speed;
         rb2D.velocity = new Vector2(speed, rb2D.velocity.y);
+        timer = 0;
     }
+
+    bool CheckGrounded()
+    {
+        if (isFall)
+        {
+            Vector2 center = new Vector2(col2D.bounds.center.x, col2D.bounds.center.y);
+            if(Physics2D.Raycast(center, Vector2.down, col2D.bounds.extents.y * 1.25f, groundLayer))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        if (speed > 0)
+        {
+            Vector2 footRight = new Vector2(col2D.bounds.center.x + col2D.bounds.extents.x, col2D.bounds.center.y);
+            if(Physics2D.Raycast(footRight, Vector2.down, col2D.bounds.extents.y * 1.25f, groundLayer))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        if (speed < 0)
+        {
+            Vector2 footLeft = new Vector2(col2D.bounds.center.x - col2D.bounds.extents.x, col2D.bounds.center.y);
+            if (Physics2D.Raycast(footLeft, Vector2.down, col2D.bounds.extents.y * 1.25f, groundLayer))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+
+    }
+
+    bool CheckSideCollision()
+    {
+        Vector3 direction = Vector3.right * speed;
+        return Physics2D.OverlapBox(col2D.bounds.center + direction.normalized * col2D.bounds.extents.x,
+            col2D.bounds.size * 0.2f, 0, groundLayer);
+    }
+
+    void CheckTimeStopped()
+    {
+        if (Mathf.Abs(rb2D.velocity.x) < 0.1f)
+        {
+            if (timer > 0.05f)
+            {
+                ChangeDirection();
+            }
+            timer += Time.deltaTime;
+        }
+        else
+        {
+            timer = 0;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
 }

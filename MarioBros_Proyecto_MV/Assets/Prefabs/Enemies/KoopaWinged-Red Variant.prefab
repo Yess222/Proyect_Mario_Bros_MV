@@ -1,0 +1,98 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &2564756053137313924
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5253624170864660931, guid: c7b6973bc4dbebe48b3372e0473f5cd6, type: 3}
+      propertyPath: m_Name
+      value: KoopaWinged-Red Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 7887167310024154927, guid: c7b6973bc4dbebe48b3372e0473f5cd6, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1968977219, guid: eeca07b47296c624a8c8c2571ecb1e2e, type: 3}
+    - target: {fileID: 8735156498869424213, guid: c7b6973bc4dbebe48b3372e0473f5cd6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8735156498869424213, guid: c7b6973bc4dbebe48b3372e0473f5cd6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 8735156498869424213, guid: c7b6973bc4dbebe48b3372e0473f5cd6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.020767557
+      objectReference: {fileID: 0}
+    - target: {fileID: 8735156498869424213, guid: c7b6973bc4dbebe48b3372e0473f5cd6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8735156498869424213, guid: c7b6973bc4dbebe48b3372e0473f5cd6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8735156498869424213, guid: c7b6973bc4dbebe48b3372e0473f5cd6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8735156498869424213, guid: c7b6973bc4dbebe48b3372e0473f5cd6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8735156498869424213, guid: c7b6973bc4dbebe48b3372e0473f5cd6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8735156498869424213, guid: c7b6973bc4dbebe48b3372e0473f5cd6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8735156498869424213, guid: c7b6973bc4dbebe48b3372e0473f5cd6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9076735220955886230, guid: c7b6973bc4dbebe48b3372e0473f5cd6, type: 3}
+      propertyPath: useWaypoints
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9076735220955886230, guid: c7b6973bc4dbebe48b3372e0473f5cd6, type: 3}
+      propertyPath: waypoints.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 7798630874448467713, guid: c7b6973bc4dbebe48b3372e0473f5cd6, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5253624170864660931, guid: c7b6973bc4dbebe48b3372e0473f5cd6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4349279373362192549}
+  m_SourcePrefab: {fileID: 100100000, guid: c7b6973bc4dbebe48b3372e0473f5cd6, type: 3}
+--- !u!1 &7745988308542619975 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5253624170864660931, guid: c7b6973bc4dbebe48b3372e0473f5cd6, type: 3}
+  m_PrefabInstance: {fileID: 2564756053137313924}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4349279373362192549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7745988308542619975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3175ac1420ab6fb45b99693a5ba2549c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  points: 200
+  floatPointsPrefab: {fileID: 6143019496171030155, guid: c33175d406fcb224e91fc3b4bfe79def, type: 3}
+  maxStoppedTime: 5
+  rollingSpeed: 15
+  isRolling: 0
+  wingPrefab: {fileID: 5149623629307381618, guid: fd66048cf09893544a3fa1d7b283a91c, type: 3}

@@ -17,7 +17,9 @@ public class CameraFollow : MonoBehaviour
 
     public bool canMove;
     float camWidth;
-    float lastPos;
+    public float lastPos;
+
+    public float lowestPoint;
 
     void Start()
     {
@@ -64,7 +66,30 @@ public class CameraFollow : MonoBehaviour
         transform.position = new Vector3(newPosX, transform.position.y, transform.position.z);
         lastPos = newPosX;
         canMove = true;
+        SearchHeightPos();
     }
+
+    void SearchHeightPos()
+    {
+        bool foundPos = false;
+        float checkPosition = lowestPoint;
+
+        do
+        {
+            if(target.position.y < checkPosition + Camera.main.orthographicSize  
+                && target.position.y > checkPosition - Camera.main.orthographicSize)
+            {
+                transform.position = new Vector3(transform.position.x, checkPosition, transform.position.z);
+                foundPos = true;
+            }
+            else
+            {
+                checkPosition += Camera.main.orthographicSize * 2;
+            }
+        }while (!foundPos);
+    }
+
+
     public float PositionInCamera(float pos, float width, out bool limitRight, out bool limitLeft)
     {
         if (pos + width > maxPosX + camWidth)

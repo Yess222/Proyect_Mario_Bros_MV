@@ -134,7 +134,7 @@ public class Mario : MonoBehaviour
         {
             if (currentState == State.Default)
             {
-                Dead();
+                Dead(true);
             }
             else
             {
@@ -161,15 +161,16 @@ public class Mario : MonoBehaviour
         animaciones.Hurt(false);
         colisiones.HurtCollision(false);
     }
-    public void Dead()
+    public void Dead(bool bounce)
     {
         if (!isDead)
         {
             AudioManager.Instance.PlayDie();
             isDead = true;
             colisiones.Dead();
-            mover.Dead();
+            mover.Dead(bounce);
             animaciones.Dead();
+            isInvincible = false;
             GameManager.Instance.LoseLife();
         }
 

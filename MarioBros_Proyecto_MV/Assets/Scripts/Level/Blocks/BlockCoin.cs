@@ -11,11 +11,12 @@ public class BlockCoin : MonoBehaviour
         AudioManager.Instance.PlayCoin();
         ScoreManager.Instance.SumarPuntos(200);
 
-        Vector2 positionFloatPoints = new Vector2(transform.position.x , transform.position.y + 1f);
-
+        Vector2 positionFloatPoints = new Vector2(transform.position.x , transform.position.y + 1f);        
         GameObject newFloatPoints = Instantiate(floatPointsPrefab, positionFloatPoints, Quaternion.identity);
         FloatPoint floatPoints = newFloatPoints.GetComponent<FloatPoint>();
         floatPoints.numPoints = 200;
+
+        transform.position = new Vector2(transform.position.x, transform.position.y + 0.5f);
         StartCoroutine(Animation());
     }
 
@@ -24,7 +25,7 @@ public class BlockCoin : MonoBehaviour
         float time = 0;
         float duration = 0.25f;
         Vector2 startPosition = transform.position;
-        Vector2 targetPosition = (Vector2)transform.position + (Vector2.up * 3f);
+        Vector2 targetPosition = (Vector2)transform.position + (Vector2.up * 2f);
 
         while (time < duration)
         {
