@@ -16,7 +16,7 @@ public class Bowser : Enemy
     float direction = -1;
     bool canMove;
 
-    public bool collalpseBridge;
+    public bool collapseBridge;
     protected override void Start()
     {
         base.Start();
@@ -25,7 +25,7 @@ public class Bowser : Enemy
     }
     protected override void Update()
     {
-        if(!collalpseBridge)
+        if(!collapseBridge)
         {
             if(!canMove && Mathf.Abs(Mario.Instance.transform.position.x - transform.position.x) <= minDistanceToMove)
             {
@@ -38,7 +38,7 @@ public class Bowser : Enemy
                     direction = -1;
                     transform.localScale = Vector3.one;
                 }
-                else if(transform.position.x <= (Mario.Instance.trasnform.position.x - 2f) && direction)
+                else if(transform.position.x <= (Mario.Instance.transform.position.x - 2f) && direction  == -1)
                 {
                     direction = 1;
                     transform.localScale = new Vector3(-1, 1, 1);
