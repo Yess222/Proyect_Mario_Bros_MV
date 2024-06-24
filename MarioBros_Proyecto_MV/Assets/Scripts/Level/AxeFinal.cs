@@ -6,25 +6,40 @@ public class AxeFinal : MonoBehaviour
 {
     public GameObject[] bridgeParts;
     public Transform finalLimit;
+    public GameObject bridge;
+    public Bowser bowser;
 
+    bool isBridgeCollapse;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            StartCoroutine(CollapseBridge());
-            GetComponent<CircleCollider2D>().enabled = false;
-            Mario.Instance.mover.StopMove();
-            LevelManager.Instance.levelPaused = true;
+            if(!isBridgeCollapse)
+            {
+                isBridgeCollapse = true;
+                GetComponent<CircleCollider2D>().enabled = false;
+                Mario.Instance.mover.StopMove();
+                LevelManager.Instance.levelPaused = true;
+                StartCoroutine(CollapseBridge());
+            
+            }
         }
     }
 
     IEnumerator CollapseBridge()
     {
-        foreach (GameObject bridgePart in bridgeParts)
+        if(!bowser.isDead)
         {
-            Destroy(bridgePart);
-            yield return new WaitForSeconds(0.2f);
+            foreach (GameObject bridgePart in bridgeParts)
+            {
+                Destroy(bridgePart);
+                yield return new WaitForSeconds(0.2f);
+            }
+            Destroy(bridge);
+            bowser.FallBridge();
+            yield return new WaitForSeconds(1.25f);
         }
+        
         //Mario.Instance.mover.ResetMove();
         Mario.Instance.mover.AutoWalk();
         Camera.main.GetComponent<CameraFollow>().UpdateMaxPos(finalLimit.position.x);
