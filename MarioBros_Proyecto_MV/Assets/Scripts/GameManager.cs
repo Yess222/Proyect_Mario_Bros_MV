@@ -38,12 +38,25 @@ public class GameManager : MonoBehaviour
     //Start is called before the first frame update
     void Start()
     {
-        lives = 3;
-        coins = 0;
-        hud.UpdateCoins(coins);
+        // lives = 3;
+        // coins = 0;
+        // hud.UpdateCoins(coins);
+        HideTimer();
+        isGameOver = true;
         currentWorld = PlayerPrefs.GetInt("World",1);
         currentLevel = PlayerPrefs.GetInt("Level",1);
     }
+    // private void Update()
+    // {
+    //     if(Input.GetKeyDown(KeyCode.R))
+    //     {
+    //         StartGame();
+    //     }
+    //     if(Input.GetKeyDown(KeyCode.C))
+    //     {
+    //         ContinueGame();
+    //     }
+    // }
     public void AddCoins()
     {
         coins++;
@@ -81,6 +94,16 @@ public class GameManager : MonoBehaviour
         lives++;
         AudioManager.Instance.PlayOneUp();
     }
+    public void StartGame()
+    {
+        currentLevel = 1;
+        currentWorld = 1;
+        LoadLevel();
+    }
+    public void ContinueGame()
+    {
+        LoadLevel();
+    }
     void NewGame()
     {
         lives = 3;
@@ -106,7 +129,19 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(3f);
         isRespawning = false;
         //SceneManager.LoadScene(0);
-        LoadTransition();
+        //LoadTransition();
+        SceneManager.LoadScene("Transition");
+        if(isGameOver)
+        {
+            AudioManager.Instance.PlayGameOver();
+            yield return new WaitForSeconds(5f);
+            SceneManager.LoadScene("StartMenu");
+        }
+        else
+        {   
+            yield return new WaitForSeconds(5f);
+            LoadLevel();
+        }
     }
     public void LevelLoaded()
     {

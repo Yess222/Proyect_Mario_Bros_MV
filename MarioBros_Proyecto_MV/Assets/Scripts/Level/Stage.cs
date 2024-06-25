@@ -11,7 +11,7 @@ public class Stage : MonoBehaviour
     public bool cameraMove;
 
     public Color backgroundColor;
-    
+    public LevelStageMusic musicBackground;
     void StartStage()
     {
         Mario.Instance.mover.ResetMove();
@@ -24,6 +24,7 @@ public class Stage : MonoBehaviour
     }
     public void EnterStage()
     {
+        AudioManager.Instance.PlayLevelStageMusic(musicBackground);
         Camera.main.backgroundColor = backgroundColor;
         Mario.Instance.transform.position = enterPoint.position;
         cam.transform.position = new Vector3(transform.position.x, transform.position.y, cam.transform.position.z);

@@ -37,6 +37,7 @@ public class StageConnection : MonoBehaviour
 
     IEnumerator StartConnection()
     {
+        AudioManager.Instance.PlayPipe();
         connectionStarted = true;
         LevelManager.Instance.levelPaused = true;
         cam.canMove = false;

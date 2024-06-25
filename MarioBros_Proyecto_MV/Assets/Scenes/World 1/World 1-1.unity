@@ -16902,7 +16902,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98aac3feacfd8ae4390d3c7c4fc04e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: 400
+  time: 300
   timer: 0
   levelFinished: 0
   levelPaused: 0
@@ -16912,6 +16912,7 @@ MonoBehaviour:
   hasLevelStart: 0
   cameraFollow: {fileID: 1434325317}
   countPoints: 0
+  musicBackground: 0
 --- !u!1 &2447944695502665170
 GameObject:
   m_ObjectHideFlags: 0
@@ -17138,6 +17139,10 @@ PrefabInstance:
       objectReference: {fileID: 1445938047}
     - target: {fileID: 2555164854065085365, guid: a9628ce84e0acac4681f25b2158e320f, type: 3}
       propertyPath: enterDirection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2555164854065085365, guid: a9628ce84e0acac4681f25b2158e320f, type: 3}
+      propertyPath: musicBackground
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2555164854065085365, guid: a9628ce84e0acac4681f25b2158e320f, type: 3}

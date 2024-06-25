@@ -7408,6 +7408,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2555164854065085365, guid: a9628ce84e0acac4681f25b2158e320f, type: 3}
+      propertyPath: musicBackground
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2555164854065085365, guid: a9628ce84e0acac4681f25b2158e320f, type: 3}
       propertyPath: backgroundColor.a
       value: 1
       objectReference: {fileID: 0}
@@ -22035,6 +22039,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1303317742}
     - target: {fileID: 2555164854065085365, guid: a9628ce84e0acac4681f25b2158e320f, type: 3}
+      propertyPath: musicBackground
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2555164854065085365, guid: a9628ce84e0acac4681f25b2158e320f, type: 3}
       propertyPath: backgroundColor.a
       value: 1
       objectReference: {fileID: 0}
@@ -27637,6 +27645,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2555164854065085365, guid: a9628ce84e0acac4681f25b2158e320f, type: 3}
+      propertyPath: musicBackground
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2555164854065085365, guid: a9628ce84e0acac4681f25b2158e320f, type: 3}
       propertyPath: backgroundColor.a
       value: 1
       objectReference: {fileID: 0}
@@ -30719,6 +30731,7 @@ MonoBehaviour:
   hasLevelStart: 1
   cameraFollow: {fileID: 1443508356}
   countPoints: 0
+  musicBackground: 3
 --- !u!1 &4579702553475945997
 GameObject:
   m_ObjectHideFlags: 0

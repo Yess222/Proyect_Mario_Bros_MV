@@ -61,7 +61,12 @@ public class Mover : MonoBehaviour
     }
 
     void Update()
-    {
+    {   
+        if(GameManager.Instance.isGameOver)
+        {
+            animaciones.Grounded(true);
+            return;
+        }
         bool grounded = colisiones.Grounded();
         animaciones.Grounded(grounded);
 
@@ -152,6 +157,8 @@ public class Mover : MonoBehaviour
     }
     public void FixedUpdate()
     {
+        if(GameManager.Instance.isGameOver)
+            return;
         //if (LevelManager.Instance.levelFinished)
         //{
             if (isClimbingFlagPole)
@@ -314,6 +321,7 @@ public class Mover : MonoBehaviour
     }
     IEnumerator JumpOffPole()
     {
+        
         isAutoWalk = false;
         isClimbingFlagPole = false;
         rb2D.velocity = Vector2.zero;
@@ -336,6 +344,7 @@ public class Mover : MonoBehaviour
         //isAutoWalk = true;
         //currentVelocity = autoWalkSpeed;
         AutoWalk();
+        AudioManager.Instance.PlayLevelCompleted();
     }
 
     public void AutoMoveConnection(ConnectDirection direction)
