@@ -15,7 +15,8 @@ public class Toad : MonoBehaviour
         }
     }
     IEnumerator ShowFinalTexts()
-    {
+    {   
+        AudioManager.Instance.PlayCastleCompleted();
         yield return new WaitForSeconds(1f);
         text1.SetActive(true);
         yield return new WaitForSeconds(1f);

@@ -24,6 +24,8 @@ public class LevelManager : MonoBehaviour
 
     public bool countPoints;
 
+    public LevelStageMusic musicBackground;
+
     public static LevelManager Instance;
     private void Awake()
     {
@@ -55,6 +57,9 @@ public class LevelManager : MonoBehaviour
         if (checkPoints[currentPoint].stage != null)
         {
             checkPoints[currentPoint].stage.EnterStage();
+        }else
+        {
+            AudioManager.Instance.PlayLevelStageMusic(musicBackground);            
         }
 
         Camera.main.backgroundColor = checkPoints[currentPoint].backgroundColor;
@@ -71,7 +76,10 @@ public class LevelManager : MonoBehaviour
         if (!levelFinished && !levelPaused)
         {
             timer -= Time.deltaTime / 0.4f; //1 segundo del juego equivale a 0.4s. reales
-
+            if (timer <= 100)
+            {
+                AudioManager.Instance.HurryUp();
+            }
             if (timer <= 0)
             {
                 //Mario mario = FindAnyObjectByType<Mario>();

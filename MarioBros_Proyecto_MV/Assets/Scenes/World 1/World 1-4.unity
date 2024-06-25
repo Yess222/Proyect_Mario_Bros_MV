@@ -16400,6 +16400,7 @@ MonoBehaviour:
   hasLevelStart: 0
   cameraFollow: {fileID: 1542241323}
   countPoints: 0
+  musicBackground: 2
 --- !u!1 &7947007146642110321
 GameObject:
   m_ObjectHideFlags: 0

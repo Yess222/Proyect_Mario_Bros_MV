@@ -91,6 +91,7 @@ public class Bowser : Enemy
 
     public void FallBridge()
     {
+        AudioManager.Instance.PlayBowserFall();
         Dead();
     }
 
@@ -112,6 +113,7 @@ public class Bowser : Enemy
         health--;
         if(health <= 0)
         {
+            AudioManager.Instance.PlayBowserFall();
             FlipDie();
             isDead = true;
             // Dead();
