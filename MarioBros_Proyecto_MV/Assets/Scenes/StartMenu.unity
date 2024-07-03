@@ -669,6 +669,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 8510638628497583516, guid: 8762b73e00930544780eb39452d3be1c, type: 3}
+      propertyPath: worlds.Array.data[0].levels.Array.data[3].sceneName
+      value: World 1-4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1024,6 +1028,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 126478431782034843, guid: 8b2f15952fa1c8e45bd84078f8aaac9e, type: 3}
+      propertyPath: clipBowserFall
+      value: 
+      objectReference: {fileID: 8300000, guid: 76492c95e184f4240b97bbafd0543832, type: 3}
     - target: {fileID: 5418948746106542380, guid: 8b2f15952fa1c8e45bd84078f8aaac9e, type: 3}
       propertyPath: m_Name
       value: AudioManager
