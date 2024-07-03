@@ -108,6 +108,11 @@ public class Mario : MonoBehaviour
                     EndHurt();
                 }
             }
+            // Check for ESC key press to quit the game
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Application.Quit();
+            }
         }
 
         animaciones.Crouch(isCrouched);
