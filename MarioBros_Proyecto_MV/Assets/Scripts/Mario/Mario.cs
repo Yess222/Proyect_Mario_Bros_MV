@@ -122,15 +122,14 @@ public class Mario : MonoBehaviour
         //    headBox.SetActive(false);
         //}
 
-        //if(Input.GetKeyDown(KeyCode.P))
-        //{   
+        // if(Input.GetKeyDown(KeyCode.P))
+        // {   
         //   Time.timeScale = 0;
-        //    animaciones.PowerUp();
-        //}
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            Hit();
-        }
+        // }
+        // if (Input.GetKeyDown(KeyCode.R))
+        // {
+        //     Time.timeScale = 1;
+        // }
     }
     public void Hit()
     {
